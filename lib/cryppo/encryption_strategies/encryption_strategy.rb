@@ -35,13 +35,23 @@ module Cryppo
       protected
 
       def handle_encryption_error(e)
-        # wrap unhandled errors
-        raise EncryptionError, e
+        case e
+        when Cryppo::Error
+          raise e
+        else
+          # wrap unhandled errors
+          raise EncryptionError, e
+        end
       end
 
       def handle_decryption_error(e)
-        # wrap unhandled errors
-        raise DecryptionError, e
+        case e
+        when Cryppo::Error
+          raise e
+        else
+          # wrap unhandled errors
+          raise DecryptionError, e
+        end
       end
 
     end

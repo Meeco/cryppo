@@ -13,6 +13,10 @@ PATCH version when you make backwards-compatible bug fixes
 ### Changed
 * `EnryptionStrategy` and  `KeyDerivationStrategy` names are now derived from the class name (excluding the module name)
 
+### Fixed
+* Errors of type `Cryppo::Error` raised during an encryption/decryption operation no longer get reraised as `EncryptionError` or `DecryptionError`.
+  As an example, attempting to encrypt a `EncryptionValues::EncryptionKey` should raise a `CoercionOfEncryptedKeyToString` error, however, it was being converted to an `EncryptionError`
+
 ## [0.1.0] - 2018-10-04
 
 ### Added
