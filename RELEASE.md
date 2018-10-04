@@ -10,6 +10,8 @@ PATCH version when you make backwards-compatible bug fixes
 
 ## Unreleased
 
+## [0.2.0] - 2018-10-04
+
 ### Changed
 * `EnryptionStrategy` and  `KeyDerivationStrategy` names are now derived from the class name (excluding the module name)
 

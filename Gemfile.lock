@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    cryppo (0.1.0)
+    cryppo (0.2.0)
       openssl (> 2)
 
 GEM
@@ -40,4 +40,4 @@ DEPENDENCIES
   rspec (~> 3.0)
 
 BUNDLED WITH
-   1.16.0
+   1.16.5
