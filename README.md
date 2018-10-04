@@ -131,8 +131,8 @@ The amount of computational effort required to complete the operation can be twe
 
 ## Wishlist
 
-[ ] Provide a way for third parties to register additional encryption strategies and key derivation strategies
-[ ] Tag encryption strategies that can accept derived keys.  Eg AES strategies can accept Pbkdf2 derived keys whereas Rsa4096 can only accept an OpenSSL::PKey::RSA as the encryption key.
+* [ ] Provide a way for third parties to register additional encryption strategies and key derivation strategies
+* [ ] Tag encryption strategies that can accept derived keys.  Eg AES strategies can accept Pbkdf2 derived keys whereas Rsa4096 can only accept an OpenSSL::PKey::RSA as the encryption key.
 
 ## Development
 
