@@ -6,10 +6,6 @@ module Cryppo
 
       UnknownKeyPairType = Class.new(Cryppo::Error)
 
-      def strategy_name
-        'rsa4096'
-      end
-
       def key_length
         32 # this value has been chosen as it matches most of the AES cipher key lengths
       end

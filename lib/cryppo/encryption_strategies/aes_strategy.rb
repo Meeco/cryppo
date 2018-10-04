@@ -4,10 +4,6 @@ module Cryppo
   module EncryptionStrategies
     class AesStrategy < EncryptionStrategy
 
-      def strategy_name
-        cipher_name.downcase
-      end
-
       def cipher_name
         raise NotImplementedError, 'must implement the `cipher_name` method'
       end

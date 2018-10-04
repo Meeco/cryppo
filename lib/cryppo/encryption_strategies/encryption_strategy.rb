@@ -9,7 +9,7 @@ module Cryppo
       include EncryptionValues::EncryptionKey::Helpers
 
       def strategy_name
-        raise NotImplementedError, 'must implement the `strategy_name` method'
+        self.class.name.split('::').last
       end
 
       def generate_key

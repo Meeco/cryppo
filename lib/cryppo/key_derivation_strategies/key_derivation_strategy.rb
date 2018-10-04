@@ -4,6 +4,10 @@ module Cryppo
 
       include EncryptionValues::EncryptionKey::Helpers
 
+      def strategy_name
+        self.class.name.split('::').last
+      end
+
       def generate_derived_key(key, key_length: 32)
         raise NotImplementedError, 'must implement the `generate_derived_key` method'
       end
