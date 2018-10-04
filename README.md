@@ -35,7 +35,7 @@ encryption_strategy = 'Aes256Gcm'
 key_derivation_strategy = 'Pbkdf2Hmac'
 user_passphrase = 'MyPassword!!'
 data = 'some data to encrypt'
-encrypted_data = Cryppo.encrypt_with_derived_key(encryption_strategy, key_derivation_strategy, key, data)
+encrypted_data = Cryppo.encrypt_with_derived_key(encryption_strategy, key_derivation_strategy, user_passphrase, data)
 ```
 
 #### Storing Encrypted Data
