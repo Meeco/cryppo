@@ -10,6 +10,8 @@ PATCH version when you make backwards-compatible bug fixes
 
 ## Unreleased
 
+## [0.1.0] - 2018-10-04
+
 ### Added
 * The initial implementation of the Cryppo lib.  Includes:
   * Encryption strategies:
