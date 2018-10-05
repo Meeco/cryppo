@@ -13,9 +13,10 @@ module Cryppo
       end
 
       def generate_derived_key(key, key_length: 32)
+        unwrapped_key = unwrap_encryption_key(key)
         salt = OpenSSL::Random.random_bytes(20)
         iterations = min_iterations + SecureRandom.random_number(variance) # provide some randomisation to the number of iterations
-        derived_key = OpenSSL::KDF.pbkdf2_hmac(key, salt: salt, iterations: iterations, length: key_length, hash: OpenSSL::Digest::SHA256.new)
+        derived_key = OpenSSL::KDF.pbkdf2_hmac(unwrapped_key, salt: salt, iterations: iterations, length: key_length, hash: OpenSSL::Digest::SHA256.new)
         wrapped_derived_key = wrap_encryption_key(derived_key)
         EncryptionValues::DerivedKey.new(self, wrapped_derived_key, salt: salt, iter: iterations, length: key_length, hash: 'SHA256')
       end
