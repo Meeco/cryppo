@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    cryppo (0.2.1)
+    cryppo (0.2.2)
       openssl (> 2)
 
 GEM

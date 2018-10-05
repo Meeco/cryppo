@@ -10,6 +10,8 @@ PATCH version when you make backwards-compatible bug fixes
 
 ## Unreleased
 
+## [0.2.2] - 2018-10-05
+
 ### Fixed
 * When using the `Pbkdf2Hmac` derivation strategy, keys that are wrapped in `EnryptionKey` are now unwrapped to prevent the `CoercionOfEncryptedKeyToString` error being raised.
 
