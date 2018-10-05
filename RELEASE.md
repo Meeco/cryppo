@@ -10,6 +10,9 @@ PATCH version when you make backwards-compatible bug fixes
 
 ## Unreleased
 
+### Fixed
+* Fixed wrong number of arguments being passed to `EncryptionValues::EncryptedData` in `Cryppo.to_encrypted_data_value`
+
 ## [0.2.0] - 2018-10-04
 
 ### Changed

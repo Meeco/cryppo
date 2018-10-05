@@ -63,7 +63,7 @@ module Cryppo
 
   def to_encrypted_data_value(encryption_strategy_name, encrypted_data, **encryption_artefacts)
     encryption_strategy = encryption_strategy_by_name(encryption_strategy_name).new
-    EncryptionValues::EncryptedData.new(encryption_strategy, encrypted_data, nil, **encryption_artefacts)
+    EncryptionValues::EncryptedData.new(encryption_strategy, encrypted_data, **encryption_artefacts)
   end
 
   def to_derived_key_value(key_derivation_strategy_name, **derivation_artefacts)
