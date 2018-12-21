@@ -33,7 +33,7 @@ module Cryppo
 
       def deserialize_artefacts(payload)
         salt, iterations, key_length = payload.values_at('iv',  'i', 'l')
-        { salt: salt, iter: iterations, length: key_length }
+        { salt: salt, iter: iterations, length: key_length, hash: 'SHA256' }
       end
 
     end
