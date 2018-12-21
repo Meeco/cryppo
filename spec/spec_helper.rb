@@ -12,3 +12,16 @@ RSpec.configure do |config|
     c.syntax = :expect
   end
 end
+
+
+##################################
+# Helper Methods
+##################################
+
+def aes_encryption_strategies
+  ['Aes256Ofb', 'Aes256Gcm']
+end
+
+def all_encryption_strategies
+  aes_encryption_strategies + ['Rsa4096']
+end
