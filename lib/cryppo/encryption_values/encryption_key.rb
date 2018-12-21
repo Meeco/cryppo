@@ -10,13 +10,13 @@ module Cryppo
         @encryption_key
       end
 
-      def raise_serialisation_error
+      def raise_serialization_error
         ::Kernel.raise CoercionOfEncryptedKeyToString, 'This is a key used for encryption and should not be implicitly coerced to a String.  It needs to be guarded and protected.  Explicitly use the `unwrap_key` method to use the enclosed encryption key.'
       end
 
-      alias :to_s :raise_serialisation_error
-      alias :to_str :raise_serialisation_error
-      alias :marshal_dump :raise_serialisation_error
+      alias :to_s :raise_serialization_error
+      alias :to_str :raise_serialization_error
+      alias :marshal_dump :raise_serialization_error
 
       module Helpers
         extend self

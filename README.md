@@ -40,13 +40,13 @@ encrypted_data = Cryppo.encrypt_with_derived_key(encryption_strategy, key_deriva
 
 #### Persisting Encrypted Data
 The encryption process will return an `EncryptedDataWithDerivedKey` object that contains all the encryption artifacts necessary to decrypt the encrypted data.
-The data in this object can be serialised using the the `EncryptedDataWithDerivedKey#serialise` method.
-The serialised payload can be stored directly in a database.
-The serialised payload can later be loaded by using `Cryppo.load(serialised_payload)`.
+The data in this object can be serialized using the the `EncryptedDataWithDerivedKey#serialize` method.
+The serialized payload can be stored directly in a database.
+The serialized payload can later be loaded by using `Cryppo.load(serialized_payload)`.
 
 ```ruby
-serialised_payload = encrypted_data.serialise
-loaded_encrypted_data = Cryppo.load(serialised_payload)
+serialized_payload = encrypted_data.serialize
+loaded_encrypted_data = Cryppo.load(serialized_payload)
 ```
 
 The older method of persistence required the following values be store:
@@ -59,13 +59,13 @@ The older method of persistence required the following values be store:
 **Note: Never store the contents of objects of type `Cryppo::EncryptionValues::EncryptionKey`**.  These objects contain keys used to encrypt the data.  They should never be stored in the clear.  They need to be kept safe and protected!!
 
 #### Decryption
-To decrypt the encrypted data, we load the serialised encrypted data, and then decrypt with the users passphrase:
+To decrypt the encrypted data, we load the serialized encrypted data, and then decrypt with the users passphrase:
 
 Following on from the encryption example:
 
 ```ruby
 user_passphrase = 'MyPassword!!'
-encrypted_data = Cryppo.load(serialised_payload)
+encrypted_data = Cryppo.load(serialized_payload)
 encrypted_data.decrypt(user_passphrase)
 ```
 
@@ -100,9 +100,9 @@ encrypted_data = Cryppo.encrypt(encryption_strategy, key, data)
 
 #### Persisting Encrypted Data
 The encryption process will return an `EncryptedData` object that contains all the encryption artefacts necessary to decrypt the encrypted data.
-The data in this object can be serialised using the the `EncryptedData#serialise` method.
-The serialised payload can be stored directly in a database.
-The serialised payload can later be loaded by using `Cryppo.load(serialised_payload)`.
+The data in this object can be serialized using the the `EncryptedData#serialize` method.
+The serialized payload can be stored directly in a database.
+The serialized payload can later be loaded by using `Cryppo.load(serialized_payload)`.
 
 The older method of persistence required the following values be store:
 * `encrypted_data.encryption_strategy.strategy_name`
@@ -113,12 +113,12 @@ The older method of persistence required the following values be store:
 
 #### Decryption
 
-To decrypt the encrypted data, we load the serialised encrypted data, and then decrypt with the users passphrase:
+To decrypt the encrypted data, we load the serialized encrypted data, and then decrypt with the users passphrase:
 
 Following on from the encryption example:
 
 ```ruby
-encrypted_data = Cryppo.load(serialised_payload)
+encrypted_data = Cryppo.load(serialized_payload)
 encrypted_data.decrypt(key)
 ```
 
@@ -136,11 +136,11 @@ encryption_artefacts = encrypted_data.encryption_artefacts
 decrypted_data = Cryppo.decrypt(encryption_strategy_name, key, encrypted_data, encryption_artefacts)
 ```
 
-## Serialisation Format
+## Serialization Format
 
-The serialisation format of encrypted data is designed to be easy to parse and store.
+The serialization format of encrypted data is designed to be easy to parse and store.
 
-There are two serialisation formats:
+There are two serialization formats:
 * Encrypted data encrypted without a derived key
 * Encrypted data encrypted with a derived key
 
@@ -150,21 +150,21 @@ A string containing 3 parts concatenated with a `.`.
 
 1. Encryption Strategy Name: The stategy name as defined by EncryptionStrategy#strategy_name
 2. Encoded Encrypted Data: Encrypted Data is encoded with Base64.urlsafe_encode64
-3. Encoded Encryption Artefacts: Encryption Artefacts are serialised into a hash by EncryptionStrategy#serialise_artefact, converted to YAML, then encoded with Base64.urlsafe_encode64
+3. Encoded Encryption Artefacts: Encryption Artefacts are serialized into a hash by EncryptionStrategy#serialize_artefact, converted to YAML, then encoded with Base64.urlsafe_encode64
 
 ### Encrypted data encrypted with a derived key
 
 A string containing 5 parts concatenated with a `.`.  The first 3 parts are the same as above.
 
 4. Key Derivation Strategy Name: The stategy name as defined by EncryptionStrategy#strategy_name
-5. Encoded Key Derivation Artefacts: Encryption Artefacts are serialised into a hash by EncryptionStrategy#serialise_artefact, converted to YAML, then encoded with Base64.urlsafe_encode64
+5. Encoded Key Derivation Artefacts: Encryption Artefacts are serialized into a hash by EncryptionStrategy#serialize_artefact, converted to YAML, then encoded with Base64.urlsafe_encode64
 
-### Serialisation of encryption artefacts and key derivation artefacts
+### Serialization of encryption artefacts and key derivation artefacts
 
-Each strategy is responsible for serialising and deserialising any artefacts it produces.
+Each strategy is responsible for serializing and deserializing any artefacts it produces.
 The goal is to produce a hash containing the artefacts required to decrypt the encrypted data.
 The keys should be stringified to enhance compatibility between different YAML implementations.
-The keys should optionally be abbreviated to reduce the serialised payload size.
+The keys should optionally be abbreviated to reduce the serialized payload size.
 
 ## Encryption Strategies
 

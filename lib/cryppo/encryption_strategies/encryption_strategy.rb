@@ -32,12 +32,12 @@ module Cryppo
         raise NotImplementedError, 'must implement the `decrypt` method'
       end
 
-      def serialise_artefacts(artefacts)
-        raise NotImplementedError, 'must implement the `serialise_artefacts` method.  The method should return a hash with stringified keys.'
+      def serialize_artefacts(artefacts)
+        raise NotImplementedError, 'must implement the `serialize_artefacts` method.  The method should return a hash with stringified keys.'
       end
 
-      def deserialise_artefacts(payload)
-        raise NotImplementedError, 'must implement the `deserialise_artefacts` method.  The method should return a hash with stringified keys.'
+      def deserialize_artefacts(payload)
+        raise NotImplementedError, 'must implement the `deserialize_artefacts` method.  The method should return a hash with stringified keys.'
       end
 
       protected

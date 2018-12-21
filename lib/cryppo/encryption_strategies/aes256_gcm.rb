@@ -37,12 +37,12 @@ module Cryppo
         handle_decryption_error(e)
       end
 
-      def serialise_artefacts(artefacts)
+      def serialize_artefacts(artefacts)
         iv, auth_tag, auth_data = artefacts.values_at(:iv, :auth_tag, :auth_data)
         { 'iv' => iv, 'at' => auth_tag, 'ad' => auth_data }
       end
 
-      def deserialise_artefacts(payload)
+      def deserialize_artefacts(payload)
         iv, auth_tag, auth_data = payload.values_at('iv', 'at', 'ad')
         { iv: iv, auth_tag: auth_tag, auth_data: auth_data }
       end

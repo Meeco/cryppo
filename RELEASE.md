@@ -11,11 +11,11 @@ PATCH version when you make backwards-compatible bug fixes
 ## Unreleased
 
 ### Added
-* Added serialisation and deserialisation of encrypted data
-* Updated README with serialisation instructions
+* Added serialization and deserialization of encrypted data
+* Updated README with serialization instructions
 
 ### Fixed
-* Fix misspelled error message in EncryptionKey#raise_serialisation_error
+* Fix misspelled error message in EncryptionKey#raise_serialization_error
 * Fixed spelling of UnsupportedKeyDerivationStrategy
 
 ## [0.2.2] - 2018-10-05

@@ -19,9 +19,9 @@ module Cryppo
         key_derivation_strategy.build_derived_key(key, self)
       end
 
-      def serialise
-        serialised_artefacts = key_derivation_strategy.serialise_artefacts(derivation_artefacts)
-        encoded_artefacts = Base64.urlsafe_encode64(serialised_artefacts.to_yaml)
+      def serialize
+        serialized_artefacts = key_derivation_strategy.serialize_artefacts(derivation_artefacts)
+        encoded_artefacts = Base64.urlsafe_encode64(serialized_artefacts.to_yaml)
         '%s.%s' % [key_derivation_strategy.strategy_name, encoded_artefacts]
       end
 

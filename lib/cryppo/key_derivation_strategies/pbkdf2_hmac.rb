@@ -26,12 +26,12 @@ module Cryppo
         OpenSSL::KDF.pbkdf2_hmac(key, salt: salt, iterations: iterations, length: key_length, hash: OpenSSL::Digest::SHA256.new)
       end
 
-      def serialise_artefacts(artefacts)
+      def serialize_artefacts(artefacts)
         salt, iterations, key_length = artefacts.values_at(:salt, :iter, :length)
         { 'iv' => salt, 'i' => iterations, 'l' => key_length }
       end
 
-      def deserialise_artefacts(payload)
+      def deserialize_artefacts(payload)
         salt, iterations, key_length = payload.values_at('iv',  'i', 'l')
         { salt: salt, iter: iterations, length: key_length }
       end

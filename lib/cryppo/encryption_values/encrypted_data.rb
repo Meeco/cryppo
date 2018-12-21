@@ -17,10 +17,10 @@ module Cryppo
         encryption_strategy.decrypt(key, self)
       end
 
-      def serialise
+      def serialize
         encoded_encrypted_data = Base64.urlsafe_encode64(encrypted_data)
-        serialised_artefacts = encryption_strategy.serialise_artefacts(encryption_artefacts)
-        encoded_artefacts = Base64.urlsafe_encode64(serialised_artefacts.to_yaml)
+        serialized_artefacts = encryption_strategy.serialize_artefacts(encryption_artefacts)
+        encoded_artefacts = Base64.urlsafe_encode64(serialized_artefacts.to_yaml)
         '%s.%s.%s' % [encryption_strategy.strategy_name, encoded_encrypted_data, encoded_artefacts]
       end
 

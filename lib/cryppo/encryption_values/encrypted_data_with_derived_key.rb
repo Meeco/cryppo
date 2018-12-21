@@ -18,8 +18,8 @@ module Cryppo
         derived_key_value.build_derived_key(key)
       end
 
-      def serialise
-        '%s.%s' % [encrypted_data_value.serialise, derived_key_value.serialise]
+      def serialize
+        '%s.%s' % [encrypted_data_value.serialize, derived_key_value.serialize]
       end
 
       ##################################
