@@ -3,7 +3,7 @@ module Cryppo
 
   Error = Class.new(StandardError)
   UnsupportedEncryptionStrategy = Class.new(Error)
-  UnsupportedEKeyDerivationStrategy = Class.new(Error)
+  UnsupportedKeyDerivationStrategy = Class.new(Error)
   CoercionOfEncryptedKeyToString = Class.new(Error)
 
   module EncryptionStrategies
@@ -34,7 +34,7 @@ module Cryppo
     def self.by_name(strategy_name)
       const_get(strategy_name)
     rescue NameError => e
-      raise UnsupportedEKeyDerivationStrategy, e.message
+      raise UnsupportedKeyDerivationStrategy, e.message
     end
   end
 
