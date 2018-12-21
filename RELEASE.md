@@ -10,6 +10,8 @@ PATCH version when you make backwards-compatible bug fixes
 
 ## Unreleased
 
+## [0.3.0] - 2018-10-05
+
 ### Added
 * Added serialization and deserialization of encrypted data
 * Updated README with serialization instructions
@@ -18,7 +20,7 @@ PATCH version when you make backwards-compatible bug fixes
 * Fix misspelled error message in EncryptionKey#raise_serialization_error
 * Fixed spelling of UnsupportedKeyDerivationStrategy
 
-## [0.2.2] - 2018-10-05
+## [0.3.0] - 2018-12-21
 
 ### Fixed
 * When using the `Pbkdf2Hmac` derivation strategy, keys that are wrapped in `EnryptionKey` are now unwrapped to prevent the `CoercionOfEncryptedKeyToString` error being raised.
