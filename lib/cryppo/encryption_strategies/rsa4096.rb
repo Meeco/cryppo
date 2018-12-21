@@ -45,6 +45,14 @@ module Cryppo
         raise UnknownKeyPairType, 'Must be a PEM formatted string or an OpenSSL::PKey::RSA object: got %s' % [rsa_key]
       end
 
+      def serialise_artefacts(artefacts)
+        {}
+      end
+
+      def deserialise_artefacts(payload)
+        {}
+      end
+
     end
   end
 end

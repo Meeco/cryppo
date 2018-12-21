@@ -88,4 +88,24 @@ module Cryppo
     encryption_strategy.generate_key
   end
 
+  def load(serialised_payload)
+    encryption_strategy_name, encoded_encrypted_data, encoded_encryption_artefacts, key_derivation_strategy_name, encoded_derivation_artefacts = serialised_payload.split('.')
+
+    encryption_strategy = encryption_strategy_by_name(encryption_strategy_name).new
+    encrypted_data = Base64.urlsafe_decode64(encoded_encrypted_data)
+    serialised_encryption_artefacts = YAML.load(Base64.urlsafe_decode64(encoded_encryption_artefacts))
+    encryption_artefacts = encryption_strategy.deserialise_artefacts(serialised_encryption_artefacts)
+    payload = EncryptionValues::EncryptedData.new(encryption_strategy, encrypted_data, **encryption_artefacts)
+
+    if key_derivation_strategy_name
+      key_derivation_strategy = key_derivation_strategy_by_name(key_derivation_strategy_name).new
+      serialised_derivation_artefacts = YAML.load(Base64.urlsafe_decode64(encoded_derivation_artefacts))
+      derivation_artefacts = key_derivation_strategy.deserialise_artefacts(serialised_derivation_artefacts)
+      derived_key_value = EncryptionValues::DerivedKey.new(key_derivation_strategy, nil, **derivation_artefacts)
+      payload = EncryptionValues::EncryptedDataWithDerivedKey.new(payload, derived_key_value)
+    end
+
+    payload
+  end
+
 end

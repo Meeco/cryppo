@@ -1,3 +1,6 @@
+require 'yaml'
+require 'base64'
+
 module Cryppo
   module EncryptionValues
     class EncryptedData
@@ -12,6 +15,13 @@ module Cryppo
 
       def decrypt(key)
         encryption_strategy.decrypt(key, self)
+      end
+
+      def serialise
+        encoded_encrypted_data = Base64.urlsafe_encode64(encrypted_data)
+        serialised_artefacts = encryption_strategy.serialise_artefacts(encryption_artefacts)
+        encoded_artefacts = Base64.urlsafe_encode64(serialised_artefacts.to_yaml)
+        '%s.%s.%s' % [encryption_strategy.strategy_name, encoded_encrypted_data, encoded_artefacts]
       end
 
     end

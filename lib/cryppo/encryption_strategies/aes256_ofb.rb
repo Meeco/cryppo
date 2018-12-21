@@ -27,6 +27,14 @@ module Cryppo
         handle_decryption_error(e)
       end
 
+      def serialise_artefacts(artefacts)
+        { 'iv' => artefacts[:iv] }
+      end
+
+      def deserialise_artefacts(payload)
+        { iv: payload['iv'] }
+      end
+
     end
   end
 end

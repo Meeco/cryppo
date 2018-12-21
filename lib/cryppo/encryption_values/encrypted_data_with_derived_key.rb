@@ -18,6 +18,10 @@ module Cryppo
         derived_key_value.build_derived_key(key)
       end
 
+      def serialise
+        '%s.%s' % [encrypted_data_value.serialise, derived_key_value.serialise]
+      end
+
       ##################################
       # Some helpful accessor methods
       ##################################
@@ -26,7 +30,6 @@ module Cryppo
 
       def_delegators :@encrypted_data_value, :encryption_strategy, :encrypted_data, :encryption_artefacts
       def_delegators :@derived_key_value, :key_derivation_strategy, :derived_key, :derivation_artefacts
-
 
     end
   end

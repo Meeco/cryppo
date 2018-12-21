@@ -16,6 +16,14 @@ module Cryppo
         raise NotImplementedError, 'must implement the `build_derived_key` method.'
       end
 
+      def serialise_artefacts(artefacts)
+        raise NotImplementedError, 'must implement the `serialise_artefacts` method.  The method should return a hash with stringified keys.'
+      end
+
+      def deserialise_artefacts(payload)
+        raise NotImplementedError, 'must implement the `deserialise_artefacts` method.  The method should return a hash with stringified keys.'
+      end
+
     end
   end
 end
