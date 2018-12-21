@@ -196,9 +196,32 @@ The amount of computational effort required to complete the operation can be twe
 
 ## Development
 
+### Setup
+
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags.
+To install this gem onto your local machine, run `bundle exec rake install`.
+
+### Testing
+
+Run `rake spec`.
+
+### Releasing a new version
+
+Use semantic versioning.
+
+Update the version in following files:
+* cryppo/lib/version.rb
+* RELEASE.md - Don't remove `## Unreleased`. Instead, add the new version as a h2 heading *underneath*.
+* Gemfile.lock
+
+Ensure the RELEASE.md has been updated with all the changes/fixes/additions.
+Ensure the README.md has been updated to reflect all the changes in this release.
+Ensure new specs have been added for new features.
+Ensure the specs pass.
+Commit the changes.
+
+To release, run `bundle exec rake release`.  This will create a git tag for the version, and push git commits and tags.
 
 ## Contributing
 
