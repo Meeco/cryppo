@@ -1,6 +1,3 @@
-require 'yaml'
-require 'base64'
-
 module Cryppo
   module EncryptionValues
     class EncryptedData
