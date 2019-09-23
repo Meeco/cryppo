@@ -1,3 +1,6 @@
+require 'yaml'
+require 'base64'
+
 module Cryppo
   extend self # adds instance methods as module methods.
 
