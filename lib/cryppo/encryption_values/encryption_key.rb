@@ -19,19 +19,23 @@ module Cryppo
       alias :marshal_dump :raise_serialization_error
 
       module Helpers
-        extend self
+        module_function
 
         def wrap_encryption_key(key)
           case key
-          when EncryptionKey ; key
-          else               ; EncryptionKey.new(key)
+          when EncryptionKey
+            key
+          else
+            EncryptionKey.new(key)
           end
         end
 
         def unwrap_encryption_key(key)
           case key
-          when EncryptionKey ; key.unwrap_key
-          else               ; key
+          when EncryptionKey
+            key.unwrap_key
+          else
+            key
           end
         end
 

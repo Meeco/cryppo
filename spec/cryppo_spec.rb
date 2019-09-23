@@ -78,7 +78,8 @@ RSpec.describe Cryppo do
         it 'returns a key wrapped in Cryppo::EncryptionValues::EncryptedKey' do
           is_expected_type =
             case encryption_key
-            when Cryppo::EncryptionValues::EncryptionKey ; true
+            when Cryppo::EncryptionValues::EncryptionKey
+              true
             end
           expect(is_expected_type).to eq(true)
         end

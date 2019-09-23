@@ -37,19 +37,22 @@ module Cryppo
       def to_rsa(rsa_key)
         rsa_key = unwrap_encryption_key(rsa_key)
         case rsa_key
-        when OpenSSL::PKey::RSA ; rsa_key
-        when String             ; OpenSSL::PKey::RSA.new(rsa_key)
-        else                    ; raise
+        when OpenSSL::PKey::RSA
+          rsa_key
+        when String
+          OpenSSL::PKey::RSA.new(rsa_key)
+        else
+          raise
         end
-      rescue => e
+      rescue
         raise UnknownKeyPairType, 'Must be a PEM formatted string or an OpenSSL::PKey::RSA object: got %s' % [rsa_key]
       end
 
-      def serialize_artefacts(artefacts)
+      def serialize_artefacts(_artefacts)
         {}
       end
 
-      def deserialize_artefacts(payload)
+      def deserialize_artefacts(_payload)
         {}
       end
 

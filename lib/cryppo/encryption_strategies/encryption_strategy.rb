@@ -24,19 +24,19 @@ module Cryppo
         JSON.parse(decrypt(key, encoded_hash)).symbolize_keys
       end
 
-      def encrypt(key, data, **options)
+      def encrypt(_key, _data, **_options)
         raise NotImplementedError, 'must implement the `encrypt` method'
       end
 
-      def decrypt(key, encrypted_data, **options)
+      def decrypt(_key, _encrypted_data, **_options)
         raise NotImplementedError, 'must implement the `decrypt` method'
       end
 
-      def serialize_artefacts(artefacts)
+      def serialize_artefacts(_artefacts)
         raise NotImplementedError, 'must implement the `serialize_artefacts` method.  The method should return a hash with stringified keys.'
       end
 
-      def deserialize_artefacts(payload)
+      def deserialize_artefacts(_payload)
         raise NotImplementedError, 'must implement the `deserialize_artefacts` method.  The method should return a hash with stringified keys.'
       end
 

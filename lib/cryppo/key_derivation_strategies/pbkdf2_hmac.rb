@@ -6,7 +6,7 @@ module Cryppo
 
       attr_reader :min_iterations, :variance
 
-      def initialize(min_iterations: 20000, iteration_variance: 10)
+      def initialize(min_iterations: 20_000, iteration_variance: 10)
         @min_iterations = min_iterations
         @variance = (min_iterations * (iteration_variance / 100.0)).to_i
         @variance = 1 if @variance == 0
@@ -32,7 +32,7 @@ module Cryppo
       end
 
       def deserialize_artefacts(payload)
-        salt, iterations, key_length = payload.values_at('iv',  'i', 'l')
+        salt, iterations, key_length = payload.values_at('iv', 'i', 'l')
         { salt: salt, iter: iterations, length: key_length, hash: 'SHA256' }
       end
 
