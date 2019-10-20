@@ -8,6 +8,7 @@ module Cryppo
   UnsupportedEncryptionStrategy = Class.new(Error)
   UnsupportedKeyDerivationStrategy = Class.new(Error)
   CoercionOfEncryptedKeyToString = Class.new(Error)
+  UnsupportedSigningStrategy = Class.new(Error)
 
   module EncryptionStrategies
     autoload :EncryptionStrategy, 'cryppo/encryption_strategies/encryption_strategy'
@@ -28,6 +29,7 @@ module Cryppo
     autoload :EncryptedDataWithDerivedKey, 'cryppo/encryption_values/encrypted_data_with_derived_key'
     autoload :EncryptedData, 'cryppo/encryption_values/encrypted_data'
     autoload :EncryptionKey, 'cryppo/encryption_values/encryption_key'
+    autoload :RsaSignature, 'cryppo/encryption_values/rsa_signature'
   end
 
   module KeyDerivationStrategies
@@ -111,4 +113,19 @@ module Cryppo
     payload
   end
 
+  def sign_with_private_key(private_key_string, data)
+    digest = OpenSSL::Digest::SHA256.new
+    private_key = OpenSSL::PKey::RSA.new(private_key_string)
+    signature = private_key.sign(digest, data)
+    EncryptionValues::RsaSignature.new(signature).serialize
+  end
+
+  def load_rsa_signature(serialized_payload)
+    signed, signing_strategy, encoded_signature, encoded_data = serialized_payload.split('.')
+    if signed == "Sign" && signing_strategy == "Rsa4096"
+      return EncryptionValues::RsaSignature.new(Base64.urlsafe_decode64(encoded_signature), Base64.urlsafe_decode64(encoded_data))
+    else
+      raise UnsupportedSigningStrategy, "Serialized RSA signature expected"
+    end
+  end
 end

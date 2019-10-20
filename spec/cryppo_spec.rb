@@ -87,4 +87,21 @@ RSpec.describe Cryppo do
 
   end # Cryppo.generate_encryption_key
 
+  let!(:pkey){ OpenSSL::PKey::RSA.new(4096) }
+  let!(:data){ "Test data!" }
+
+  describe 'Cryppo.sign_with_private_key' do
+    let(:serialized_signature){ Cryppo.sign_with_private_key(pkey.to_s, data) }
+
+    expect(serialized_signature).not_to(be_nil)
+  end # Cryppo.sign_with_private_key
+
+
+  describe 'Cryppo.load_rsa_signature' do
+    let(:serialized_signature){ Cryppo.sign_with_private_key(pkey.to_s, data) }
+    let(:signature_object){ Cryppo.load_rsa_signature(serialized_signature) }
+
+    expect(signature_object.verify(data, pkey.public_key.to_s)).to eq(true)
+  end # Cryppo.load_rsa_signature
+
 end

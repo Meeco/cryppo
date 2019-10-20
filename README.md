@@ -136,6 +136,18 @@ encryption_artefacts = encrypted_data.encryption_artefacts
 decrypted_data = Cryppo.decrypt(encryption_strategy_name, key, encrypted_data, encryption_artefacts)
 ```
 
+##### Signing and verification
+
+For authentication purposes, a sender can sign a message with their private key, and a recipient can verify this signature using the sender's public key.
+
+```ruby
+    serialized_payload = Cryppo.sign_with_private_key(private_key_string, data) #accepts the private key as a string, and the message to sign
+
+    signature = Cryppo.load_rsa_signature(serialized_payload) #takes serialized signature and returns object of type Cryppo::EncryptionValues::RsaSignature
+
+    signature.verify(public_key_string, data) #will return true if the private and public keys form a keypair
+```
+
 ## Serialization Format
 
 The serialization format of encrypted data is designed to be easy to parse and store.
