@@ -117,7 +117,7 @@ module Cryppo
     digest = OpenSSL::Digest::SHA256.new
     private_key = OpenSSL::PKey::RSA.new(private_key_string)
     signature = private_key.sign(digest, data)
-    EncryptionValues::RsaSignature.new(signature).serialize
+    EncryptionValues::RsaSignature.new(signature, data).serialize
   end
 
   def load_rsa_signature(serialized_payload)
