@@ -50,7 +50,8 @@ Metrics/AbcSize:
 Layout/EmptyLinesAroundClassBody:
   Enabled: false
 Layout/EndAlignment:
-  Enabled: false
+  EnforcedStyleAlignWith: variable
+# Enabled: false
 # try enabling
 # Layout/EndAlignment:
 #   EnforcedStyleAlignWith: variable
@@ -65,7 +66,7 @@ Metrics/CyclomaticComplexity:
 Layout/MultilineOperationIndentation:
   Enabled: false
 Layout/SpaceBeforeBlockBraces:
-  Enabled: true
+  Enabled: false
 Style/EmptyMethod:
   Enabled: false
 Style/NumericPredicate:
