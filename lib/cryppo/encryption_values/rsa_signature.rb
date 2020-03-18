@@ -14,7 +14,9 @@ module Cryppo
       end
 
       def serialize
-        "Sign.Rsa4096.#{Base64.urlsafe_encode64(@signature)}.#{Base64.urlsafe_encode64(@data)}"
+        signature_base64 = Base64.urlsafe_encode64(@signature)
+        data_base64 = Base64.urlsafe_encode64(@data)
+        "Sign.Rsa4096.#{signature_base64}.#{data_base64}"
       end
 
     end

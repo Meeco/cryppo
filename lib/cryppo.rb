@@ -123,9 +123,9 @@ module Cryppo
   end
 
   def load_rsa_signature(serialized_payload)
-    signed, signing_strategy, encoded_signature, encoded_data = serialized_payload.split('.')
+    signed, signing_strategy, encoded_signature, data = serialized_payload.split('.')
     if signed == "Sign" && signing_strategy == "Rsa4096"
-      EncryptionValues::RsaSignature.new(Base64.urlsafe_decode64(encoded_signature), Base64.urlsafe_decode64(encoded_data))
+      EncryptionValues::RsaSignature.new(Base64.urlsafe_decode64(encoded_signature), Base64.urlsafe_decode64(data))
     else
       raise UnsupportedSigningStrategy, "Serialized RSA signature expected"
     end
