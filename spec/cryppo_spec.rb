@@ -93,7 +93,9 @@ RSpec.describe Cryppo do
   describe 'Cryppo.sign_with_private_key' do
     let(:serialized_signature){ Cryppo.sign_with_private_key(pkey.to_s, data) }
 
-    expect(serialized_signature).not_to(be_nil)
+    it 'serialized_signature is present' do
+      expect(serialized_signature).not_to(be_nil)
+    end
   end # Cryppo.sign_with_private_key
 
 
@@ -101,7 +103,9 @@ RSpec.describe Cryppo do
     let(:serialized_signature){ Cryppo.sign_with_private_key(pkey.to_s, data) }
     let(:signature_object){ Cryppo.load_rsa_signature(serialized_signature) }
 
-    expect(signature_object.verify(data, pkey.public_key.to_s)).to eq(true)
+    it 'verification succeeds' do
+      expect(signature_object.verify(pkey.public_key.to_s)).to eq(true)
+    end
   end # Cryppo.load_rsa_signature
 
 end
