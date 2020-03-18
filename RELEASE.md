@@ -10,6 +10,10 @@ PATCH version when you make backwards-compatible bug fixes
 
 ## Unreleased
 
+## [0.4.0] - 2019-10-21
+
+* RSA signing an verifying
+
 ## [0.3.0] - 2018-10-05
 
 ### Added
