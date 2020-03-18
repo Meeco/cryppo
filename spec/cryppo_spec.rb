@@ -17,7 +17,7 @@ RSpec.describe Cryppo do
         let(:key) { Cryppo.generate_encryption_key(encryption_strategy_name) }
 
         it "encrypts data" do
-          expect(encrypted_data).to_not eq(nil)
+          expect(encrypted_data).to_not be_nil
           expect(encrypted_data).to_not eq(plain_data)
         end
 
@@ -28,10 +28,10 @@ RSpec.describe Cryppo do
         it "can decrypt encrypted values" do
           expect(decrypted_data).to eq(plain_data)
         end
-      end # describe
+      end
 
-    end # testing the aes strategies
-  end # Cryppo.encrypt
+    end
+  end
 
   describe 'Cryppo.encrypt_with_derived_key' do
     let(:passphrase) { 'my passphrase' }
@@ -46,7 +46,7 @@ RSpec.describe Cryppo do
         let(:encryption_strategy_name) { strategy_name }
 
         it "encrypts data" do
-          expect(encrypted_data).to_not eq(nil)
+          expect(encrypted_data).to_not be_nil
           expect(encrypted_data).to_not eq(plain_data)
         end
 
@@ -62,11 +62,10 @@ RSpec.describe Cryppo do
         it "can decrypt encrypted values" do
           expect(decrypted_data).to eq(plain_data)
         end
-      end # describe
+      end
 
-    end # testing the aes strategies
-  end # Cryppo.encrypt_with_derived_key
-
+    end
+  end
 
   describe 'Cryppo.generate_encryption_key' do
 
@@ -78,34 +77,34 @@ RSpec.describe Cryppo do
         it 'returns a key wrapped in Cryppo::EncryptionValues::EncryptedKey' do
           is_expected_type =
             case encryption_key
-            when Cryppo::EncryptionValues::EncryptionKey ; true
+            when Cryppo::EncryptionValues::EncryptionKey
+              true
             end
           expect(is_expected_type).to eq(true)
         end
       end
     end
 
-  end # Cryppo.generate_encryption_key
+  end
 
-  let!(:pkey){ OpenSSL::PKey::RSA.new(4096) }
-  let!(:data){ "Test data!" }
+  let!(:pkey) { OpenSSL::PKey::RSA.new(4096) }
+  let!(:data) { "Test data!" }
 
   describe 'Cryppo.sign_with_private_key' do
-    let(:serialized_signature){ Cryppo.sign_with_private_key(pkey.to_s, data) }
+    let(:serialized_signature) { Cryppo.sign_with_private_key(pkey.to_s, data) }
 
     it 'serialized_signature is present' do
       expect(serialized_signature).not_to(be_nil)
     end
-  end # Cryppo.sign_with_private_key
-
+  end
 
   describe 'Cryppo.load_rsa_signature' do
-    let(:serialized_signature){ Cryppo.sign_with_private_key(pkey.to_s, data) }
-    let(:signature_object){ Cryppo.load_rsa_signature(serialized_signature) }
+    let(:serialized_signature) { Cryppo.sign_with_private_key(pkey.to_s, data) }
+    let(:signature_object) { Cryppo.load_rsa_signature(serialized_signature) }
 
     it 'verification succeeds' do
       expect(signature_object.verify(pkey.public_key.to_s)).to eq(true)
     end
-  end # Cryppo.load_rsa_signature
+  end
 
 end

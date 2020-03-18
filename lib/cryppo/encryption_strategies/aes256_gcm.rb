@@ -26,6 +26,7 @@ module Cryppo
       def decrypt(key, encrypted_data)
         auth_tag = encrypted_data.encryption_artefacts[:auth_tag].to_s
         raise IncorrectAuthTagLength, 'auth_tag is not 16 bytes in length' unless auth_tag.bytesize == 16
+
         decipher = new_cipher
         decipher.decrypt
         decipher.key = unwrap_encryption_key(key)

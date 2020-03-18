@@ -34,8 +34,8 @@ RSpec.describe Cryppo do
           end
 
         end
-      end # testing the encryption strategies
-    end # context 'without a derived key'
+      end
+    end
 
     context 'with a derived key' do
       let(:passphrase) { 'my passphrase' }
@@ -71,8 +71,7 @@ RSpec.describe Cryppo do
           end
 
         end
-      end # testing the aes strategies
-    end # context 'with a derived key'
-
+      end
+    end
   end
 end

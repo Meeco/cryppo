@@ -1,9 +1,10 @@
 require 'yaml'
 require 'base64'
 require 'openssl'
+require 'securerandom'
 
 module Cryppo
-  extend self # adds instance methods as module methods.
+  module_function
 
   Error = Class.new(StandardError)
   UnsupportedEncryptionStrategy = Class.new(Error)
@@ -124,7 +125,7 @@ module Cryppo
   def load_rsa_signature(serialized_payload)
     signed, signing_strategy, encoded_signature, encoded_data = serialized_payload.split('.')
     if signed == "Sign" && signing_strategy == "Rsa4096"
-      return EncryptionValues::RsaSignature.new(Base64.urlsafe_decode64(encoded_signature), Base64.urlsafe_decode64(encoded_data))
+      EncryptionValues::RsaSignature.new(Base64.urlsafe_decode64(encoded_signature), Base64.urlsafe_decode64(encoded_data))
     else
       raise UnsupportedSigningStrategy, "Serialized RSA signature expected"
     end

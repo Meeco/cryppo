@@ -1,5 +1,3 @@
-require 'openssl'
-
 module Cryppo
   module EncryptionStrategies
     class AesStrategy < EncryptionStrategy

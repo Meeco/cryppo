@@ -22,5 +22,5 @@ module Cryppo
       end
 
     end
-  end # Encryption
+  end
 end

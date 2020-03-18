@@ -1,0 +1,234 @@
+AllCops:
+  TargetRubyVersion: 2.6
+  Exclude:
+    - "bin/*"
+    - "doc"
+    - "db/schema.rb"
+    - "node_modules/**/*"
+    - "sdk/**/*"
+    - "swagger/**/*"
+    - "tmp/**/*"
+    - "coverage/**/*"
+    - "log/**/*"
+    - "docker/**/*"
+Lint/AssignmentInCondition:
+  Enabled: false
+Metrics/MethodLength:
+  Max: 999
+Layout/HashAlignment:
+  Enabled: false
+Style/Documentation:
+  Enabled: false
+Style/ClassAndModuleChildren:
+  Enabled: false
+Style/WordArray:
+  EnforcedStyle: brackets
+Style/SymbolArray:
+  EnforcedStyle: brackets
+Style/FrozenStringLiteralComment:
+  Enabled: false
+Style/StringLiterals:
+  Enabled: false
+Style/MutableConstant:
+  Enabled: false
+Style/EachWithObject:
+  Enabled: false
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+Layout/FirstHashElementIndentation:
+  EnforcedStyle: consistent
+Layout/EmptyLinesAroundModuleBody:
+  Enabled: false
+Metrics/ClassLength:
+  Enabled: false
+Style/GuardClause:
+  Enabled: false
+Style/IfUnlessModifier:
+  Enabled: false
+Metrics/AbcSize:
+  Enabled: false
+Layout/EmptyLinesAroundClassBody:
+  Enabled: false
+Layout/EndAlignment:
+  Enabled: false
+# try enabling
+# Layout/EndAlignment:
+#   EnforcedStyleAlignWith: variable
+Layout/ElseAlignment:
+  Enabled: false
+Style/Alias:
+  Enabled: false
+Metrics/PerceivedComplexity:
+  Enabled: false
+Metrics/CyclomaticComplexity:
+  Enabled: false
+Layout/MultilineOperationIndentation:
+  Enabled: false
+Layout/SpaceBeforeBlockBraces:
+  Enabled: true
+Style/EmptyMethod:
+  Enabled: false
+Style/NumericPredicate:
+  Enabled: false
+Naming/AccessorMethodName:
+  Enabled: false
+Style/LambdaCall:
+  Enabled: false
+Style/RedundantSelf:
+  Enabled: false
+Style/RaiseArgs:
+  Enabled: false
+Style/ParallelAssignment:
+  Enabled: false
+Metrics/ParameterLists:
+  Enabled: false
+Style/DoubleNegation:
+  Enabled: false
+Naming/PredicateName:
+  Enabled: false
+Layout/ParameterAlignment:
+  Enabled: false
+Layout/ClosingParenthesisIndentation:
+  Enabled: false
+Layout/MultilineMethodCallBraceLayout:
+  Enabled: false
+Layout/EmptyLinesAroundBlockBody:
+  Enabled: false
+Lint/SuppressedException:
+  Enabled: false
+Layout/SpaceInsideHashLiteralBraces:
+  Enabled: false
+Layout/SpaceInsideBlockBraces:
+  Enabled: false
+Style/PercentLiteralDelimiters:
+  Enabled: false
+Layout/EmptyLines:
+  Enabled: true
+Style/FormatStringToken:
+  Enabled: false
+Layout/IndentationWidth:
+  Enabled: true
+Lint/AmbiguousBlockAssociation:
+  Enabled: false
+Layout/FirstArrayElementIndentation:
+  Enabled: false
+Metrics/ModuleLength:
+  Enabled: false
+Naming/VariableNumber:
+  Enabled: false
+Style/NumericLiteralPrefix:
+  Enabled: false
+Style/LineEndConcatenation:
+  Enabled: false
+Style/GlobalVars:
+  Enabled: false
+Style/Lambda:
+  Enabled: false
+Style/TrailingUnderscoreVariable:
+  Enabled: false
+Layout/MultilineHashBraceLayout:
+  Enabled: false
+Layout/CaseIndentation:
+  Enabled: false
+Lint/UnderscorePrefixedVariableName:
+  Enabled: false
+Layout/LineLength:
+  Enabled: false
+Style/ZeroLengthPredicate:
+  Enabled: false
+Layout/CommentIndentation:
+  Enabled: false
+Style/Next:
+  Enabled: false
+Layout/EmptyLinesAroundExceptionHandlingKeywords:
+  Enabled: false
+Style/ClassVars:
+  Enabled: false
+Style/CommentAnnotation:
+  Enabled: false
+Style/InverseMethods:
+  Enabled: false
+Layout/FirstArgumentIndentation:
+  Enabled: false
+Style/ConditionalAssignment:
+  Enabled: false
+Style/AsciiComments:
+  Enabled: false
+Style/StructInheritance:
+  Enabled: false
+Style/MethodMissingSuper:
+  Enabled: false
+Style/MissingRespondToMissing:
+  Enabled: false
+Style/RegexpLiteral:
+  Enabled: false
+Style/Semicolon:
+  Enabled: false
+Layout/HeredocIndentation:
+  Enabled: false
+Lint/UselessComparison:
+  Enabled: false
+Bundler/OrderedGems:
+  Enabled: false
+Style/MultipleComparison:
+  Enabled: false
+Style/EmptyLiteral:
+  Enabled: false
+Metrics/BlockNesting:
+  Enabled: false
+Metrics/BlockLength:
+  Enabled: false
+Style/MultilineBlockChain:
+  Enabled: false
+Layout/AssignmentIndentation:
+  Enabled: false
+Layout/MultilineArrayBraceLayout:
+  Enabled: false
+Security/MarshalLoad:
+  Enabled: false
+Lint/NonLocalExitFromIterator:
+  Enabled: false
+Style/EmptyCaseCondition:
+  Enabled: false
+Lint/ParenthesesAsGroupedExpression:
+  Enabled: false
+Style/SpecialGlobalVars:
+  Enabled: false
+Style/FormatString:
+  Enabled: false
+Style/HashTransformKeys:
+  Enabled: true
+Style/HashEachMethods:
+  Enabled: true
+Style/HashTransformValues:
+  Enabled: true
+Layout/EmptyLinesAroundMethodBody:
+  Enabled: false
+Lint/UriEscapeUnescape:
+  Enabled: false
+Lint/Void:
+  Enabled: false
+Naming/BinaryOperatorParameterName:
+  Enabled: false
+Gemspec/OrderedDependencies:
+  Enabled: false
+Style/CommentedKeyword:
+  Enabled: false
+Layout/EmptyLinesAroundArguments:
+  Enabled: false
+Style/RescueStandardError:
+  Enabled: false
+Style/TrailingMethodEndStatement:
+  Enabled: false
+Naming/MemoizedInstanceVariableName:
+  Enabled: false
+Naming/MethodParameterName:
+  Enabled: false
+Layout/ArgumentAlignment:
+  Enabled: false
+Lint/ToJSON:
+  Enabled: false
+Layout/RescueEnsureAlignment:
+  Enabled: false
+Lint/UnusedMethodArgument:
+  AllowUnusedKeywordArguments: true
