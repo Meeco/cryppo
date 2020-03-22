@@ -49,13 +49,6 @@ serialized_payload = encrypted_data.serialize
 loaded_encrypted_data = Cryppo.load(serialized_payload)
 ```
 
-The older method of persistence required the following values be store:
-* `encrypted_data.encryption_strategy.strategy_name`
-* `encrypted_data.encrypted_data`
-* `encrypted_data.encryption_artefacts`
-* `encrypted_data.key_derivation_strategy.strategy_name`
-* `encrypted_data.derivation_artefacts`
-
 **Note: Never store the contents of objects of type `Cryppo::EncryptionValues::EncryptionKey`**.  These objects contain keys used to encrypt the data.  They should never be stored in the clear.  They need to be kept safe and protected!!
 
 #### Decryption
@@ -67,22 +60,6 @@ Following on from the encryption example:
 user_passphrase = 'MyPassword!!'
 encrypted_data = Cryppo.load(serialized_payload)
 encrypted_data.decrypt(user_passphrase)
-```
-
-##### The old decryption method
-To decrypt the encrypted data, we need to combine all the artefacts produced during the encryption process along with the users passphrase.
-
-Following on from the encryption example:
-
-```ruby
-user_passphrase = 'MyPassword!!'
-encryption_strategy_name = encrypted_data.encryption_strategy.strategy_name
-key_derivation_strategy_name = encrypted_data.key_derivation_strategy.strategy_name
-encrypted_data = encrypted_data.encrypted_data
-encryption_artefacts = encrypted_data.encryption_artefacts
-derivation_artefacts = encrypted_data.derivation_artefacts
-
-decrypted_data = Cryppo.decrypt_with_derived_key(encryption_strategy_name, key_derivation_strategy_name, user_passphrase, encrypted_data, encryption_artefacts, derivation_artefacts)
 ```
 
 ### Encrypt and decrypt data using a generated cryptographic key
@@ -104,10 +81,6 @@ The data in this object can be serialized using the the `EncryptedData#serialize
 The serialized payload can be stored directly in a database.
 The serialized payload can later be loaded by using `Cryppo.load(serialized_payload)`.
 
-The older method of persistence required the following values be store:
-* `encrypted_data.encryption_strategy.strategy_name`
-* `encrypted_data.encrypted_data`
-* `encrypted_data.encryption_artefacts`
 
 **Note: Never store the contents of objects of type `Cryppo::EncryptionValues::EncryptionKey`**.  These objects contain keys used to encrypt the data.  They should never be stored in the clear.  They need to be kept safe and protected!!
 
@@ -120,20 +93,6 @@ Following on from the encryption example:
 ```ruby
 encrypted_data = Cryppo.load(serialized_payload)
 encrypted_data.decrypt(key)
-```
-
-##### The old decryption method
-
-To decrypt the encrypted data, we need to combine all the artefacts produced during the encryption process along with the encryption key.
-
-Following on from the encryption example:
-
-```ruby
-encryption_strategy_name = encrypted_data.encryption_strategy.strategy_name
-encrypted_data = encrypted_data.encrypted_data
-encryption_artefacts = encrypted_data.encryption_artefacts
-
-decrypted_data = Cryppo.decrypt(encryption_strategy_name, key, encrypted_data, encryption_artefacts)
 ```
 
 ##### Signing and verification

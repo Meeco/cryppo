@@ -78,7 +78,7 @@ module Cryppo
     EncryptionValues::DerivedKey.new(key_derivation_strategy, nil, **derivation_artefacts)
   end
 
-  # legacy method
+  # TODO write specs
   def decrypt(encryption_strategy_name, key, encrypted_data, encryption_artefacts = {})
     encrypted_data = to_encrypted_data_value(encryption_strategy_name, encrypted_data, **encryption_artefacts)
     encrypted_data.decrypt(key)
