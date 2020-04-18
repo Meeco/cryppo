@@ -19,15 +19,21 @@ RSpec.describe Cryppo do
         expect(is_expected_type).to eq(true)
       end
     end
+
+    it 'try to generate a key for a an invalid key generation strategy' do
+      expect do
+        Cryppo.generate_encryption_key('i-dont-exist')
+      end.to raise_exception(Cryppo::UnsupportedEncryptionStrategy)
+    end
   end
 
   describe 'Encryption / decryption with a generated key' do
 
-    let(:plain_data) { 'some plain data' }
+    let(:plain_data) { 'Hello world!' }
 
     all_encryption_strategies.each do |strategy_name|
 
-      it "Encryption/decryption using strategy: #{strategy_name}" do
+      it "Encryption/decryption using strategy #{strategy_name}" do
         key = Cryppo.generate_encryption_key(strategy_name)
         encrypted_data = Cryppo.encrypt(strategy_name, key, plain_data)
         decrypted_data = encrypted_data.decrypt(key)
@@ -40,11 +46,87 @@ RSpec.describe Cryppo do
         expect(decrypted_data).to eq(plain_data)
       end
     end
+
+    context 'breaking stuff' do
+
+      actively_supported_encryption_strategies.each do |strategy_name|
+
+        it "Decrypting using the wrong key of the same strategy #{strategy_name}" do
+          key = Cryppo.generate_encryption_key(strategy_name)
+          wrong_key = Cryppo.generate_encryption_key(strategy_name)
+
+          encrypted_data = Cryppo.encrypt(strategy_name, key, plain_data)
+
+          expect do
+            encrypted_data.decrypt(wrong_key)
+          end.to raise_exception(Cryppo::EncryptionStrategies::DecryptionError)
+        end
+      end
+
+      it 'trying to feed a Aes256Gcm key to a Rsa4096 decryption' do
+        key = Cryppo.generate_encryption_key("Rsa4096")
+        encrypted_data = Cryppo.encrypt("Rsa4096", key, plain_data)
+
+        wrong_key = Cryppo.generate_encryption_key("Aes256Gcm")
+
+        expect do
+          encrypted_data.decrypt(wrong_key)
+        end.to raise_exception(Cryppo::EncryptionStrategies::Rsa4096::UnknownKeyPairType)
+      end
+
+      it 'trying to feed an Rsa4096 key to a Aes256Gcm decryption' do
+        key = Cryppo.generate_encryption_key("Aes256Gcm")
+        encrypted_data = Cryppo.encrypt("Aes256Gcm", key, plain_data)
+
+        wrong_key = Cryppo.generate_encryption_key("Rsa4096")
+
+        expect do
+          encrypted_data.decrypt(wrong_key)
+        end.to raise_exception(Cryppo::EncryptionStrategies::DecryptionError)
+      end
+
+      it 'trying to feed a random string as a key to a Rsa4096 decryption' do
+        key = Cryppo.generate_encryption_key("Rsa4096")
+        encrypted_data = Cryppo.encrypt("Rsa4096", key, plain_data)
+
+        wrong_key = "foobar"
+
+        expect do
+          encrypted_data.decrypt(wrong_key)
+        end.to raise_exception(Cryppo::EncryptionStrategies::Rsa4096::UnknownKeyPairType)
+      end
+
+      it 'trying to feed a random string as a key to a Aes256Gcm decryption' do
+        key = Cryppo.generate_encryption_key("Aes256Gcm")
+        encrypted_data = Cryppo.encrypt("Aes256Gcm", key, plain_data)
+
+        wrong_key = "foobar"
+
+        expect do
+          encrypted_data.decrypt(wrong_key)
+        end.to raise_exception(Cryppo::EncryptionStrategies::DecryptionError)
+      end
+
+      it "trying to encrypt with Aes256Gcm using a Rsa4096 key" do
+        aes_key = Cryppo.generate_encryption_key("Aes256Gcm")
+        expect do
+          Cryppo.encrypt("Rsa4096", aes_key, plain_data)
+        end.to raise_exception(Cryppo::EncryptionStrategies::Rsa4096::UnknownKeyPairType)
+      end
+
+      it "trying to encrypt with Rsa4096 using a Aes256Gcm key" do
+        rsa_key = Cryppo.generate_encryption_key("Rsa4096")
+        expect do
+          Cryppo.encrypt("Aes256Gcm", rsa_key, plain_data)
+        end.to raise_exception(Cryppo::EncryptionStrategies::EncryptionError)
+      end
+
+    end
   end
 
   describe 'Encryption / decryption with a derived key' do
 
-    let(:plain_data) { 'some plain data' }
+    let(:plain_data) { 'Hello world!' }
     let(:derivation_strategy_name) { 'Pbkdf2Hmac' }
     let(:passphrase) { 'my passphrase' }
 
