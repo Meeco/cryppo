@@ -1,6 +1,6 @@
 RSpec.describe 'Serialization' do
 
-  context 'without a derived key' do
+  context 'with a generated key' do
 
     let(:plain_data) { 'some plain data' }
 
@@ -22,7 +22,7 @@ RSpec.describe 'Serialization' do
           expect(parts[2]).to_not be_nil
         end
 
-        it 'loads the data' do
+        it 'encrypt serialize, de-serialize, decrypt' do
           key = Cryppo.generate_encryption_key(strategy_name)
           encrypted_data = Cryppo.encrypt(strategy_name, key, plain_data)
           expect(encrypted_data).to be_a(Cryppo::EncryptionValues::EncryptedData)
@@ -35,16 +35,6 @@ RSpec.describe 'Serialization' do
 
           expect(loaded_encrypted_data.encryption_strategy.strategy_name).to eq(encrypted_data.encryption_strategy.strategy_name)
           expect(loaded_encrypted_data.encryption_artefacts).to eq(encrypted_data.encryption_artefacts)
-        end
-
-        it 'decrypts the data' do
-          key = Cryppo.generate_encryption_key(strategy_name)
-          encrypted_data = Cryppo.encrypt(strategy_name, key, plain_data)
-          serialized_data = encrypted_data.serialize
-          expect(serialized_data).to be_a(String)
-
-          loaded_encrypted_data = Cryppo.load(serialized_data)
-          expect(loaded_encrypted_data).to be_a(Cryppo::EncryptionValues::EncryptedData)
 
           decrypted_data = loaded_encrypted_data.decrypt(key)
           expect(decrypted_data).to be_a(String)
@@ -86,7 +76,6 @@ RSpec.describe 'Serialization' do
         end
 
         it 'loads the data' do
-
           encrypted_data = Cryppo.encrypt_with_derived_key(
             strategy_name,
             derivation_strategy_name,
@@ -107,23 +96,7 @@ RSpec.describe 'Serialization' do
           expect(loaded_encrypted_data.derivation_artefacts).to eq(encrypted_data.derivation_artefacts)
         end
 
-        it 'decrypts the data' do
-
-          encrypted_data = Cryppo.encrypt_with_derived_key(
-            strategy_name,
-            derivation_strategy_name,
-            passphrase,
-            plain_data
-          )
-          expect(encrypted_data).to be_a(Cryppo::EncryptionValues::EncryptedDataWithDerivedKey)
-
-          decrypted_data = encrypted_data.decrypt(passphrase)
-          expect(decrypted_data).to be_a(String)
-
-          expect(decrypted_data).to eq(plain_data)
-        end
-
-        it 'loads and then decrypts' do
+        it 'encrypt with a derived key, serialize, load, encrypt with the derived key' do
           encrypted_data = Cryppo.encrypt_with_derived_key(
             strategy_name,
             derivation_strategy_name,

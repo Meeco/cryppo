@@ -84,6 +84,7 @@ module Cryppo
     encrypted_data.decrypt(key)
   end
 
+  # TODO maybe write specs?
   def decrypt_with_derived_key(encryption_strategy_name, key_derivation_strategy_name, key, encrypted_data, encryption_artefacts, derivation_artefacts)
     encrypted_data = to_encrypted_data_value(encryption_strategy_name, encrypted_data, **encryption_artefacts)
     derived_key = to_derived_key_value(key_derivation_strategy_name, **derivation_artefacts)
