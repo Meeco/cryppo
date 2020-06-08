@@ -1,7 +1,13 @@
 RSpec.describe Cryppo do
 
-  it "has a version number" do
-    expect(Cryppo::VERSION).not_to be(nil)
+  it "encryption_strategies" do
+    expect(Cryppo.encryption_strategies.sort).to eq(
+      ['Rsa4096', 'Aes256Ofb', 'Aes256Gcm'].sort
+    )
+  end
+
+  it "derivation_strategies" do
+    expect(Cryppo.derivation_strategies).to eq(['Pbkdf2Hmac'])
   end
 
   all_encryption_strategies.each do |strategy_name|
@@ -22,7 +28,6 @@ RSpec.describe Cryppo do
       Cryppo.generate_encryption_key('i-dont-exist')
     end.to raise_exception(Cryppo::UnsupportedEncryptionStrategy)
   end
-
 
   describe 'Encryption / decryption with a generated key' do
 

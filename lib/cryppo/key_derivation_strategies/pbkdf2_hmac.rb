@@ -4,6 +4,8 @@ module Cryppo
 
       attr_reader :min_iterations, :variance
 
+      Cryppo::KeyDerivationStrategies::KeyDerivationStrategy.register(self)
+
       def initialize(min_iterations: 20_000, iteration_variance: 10)
         @min_iterations = min_iterations
         @variance = (min_iterations * (iteration_variance / 100.0)).to_i

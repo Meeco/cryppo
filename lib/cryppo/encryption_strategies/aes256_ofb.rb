@@ -6,6 +6,8 @@ module Cryppo
         'AES-256-OFB'
       end
 
+      Cryppo::EncryptionStrategies::EncryptionStrategy.register(self)
+
       def encrypt(key, data)
         cipher = new_cipher
         cipher.encrypt

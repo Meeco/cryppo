@@ -40,7 +40,7 @@ encrypted_data = Cryppo.encrypt_with_derived_key(encryption_strategy, key_deriva
 
 #### Persisting Encrypted Data
 The encryption process will return an `EncryptedDataWithDerivedKey` object that contains all the encryption artifacts necessary to decrypt the encrypted data.
-The data in this object can be serialized using the the `EncryptedDataWithDerivedKey#serialize` method.
+The data in this object can be serialized using the `EncryptedDataWithDerivedKey#serialize` method.
 The serialized payload can be stored directly in a database.
 The serialized payload can later be loaded by using `Cryppo.load(serialized_payload)`.
 
@@ -94,6 +94,12 @@ Following on from the encryption example:
 encrypted_data = Cryppo.load(serialized_payload)
 encrypted_data.decrypt(key)
 ```
+
+#### Available strategies
+
+You can list all available encryption strategies with `Cryppo.encryption_strategies`,
+and all key derivation strategies with `Cryppo.derivation_strategies`.
+
 
 ##### Signing and verification
 

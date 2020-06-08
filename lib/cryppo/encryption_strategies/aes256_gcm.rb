@@ -8,6 +8,8 @@ module Cryppo
         'aes-256-gcm'
       end
 
+      Cryppo::EncryptionStrategies::EncryptionStrategy.register(self)
+
       def encrypt(key, data, auth_data: nil)
         cipher = new_cipher
         cipher.encrypt

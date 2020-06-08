@@ -45,6 +45,18 @@ module Cryppo
     end
   end
 
+  def encryption_strategies
+    Cryppo::EncryptionStrategies::Aes256Gcm
+    Cryppo::EncryptionStrategies::Aes256Ofb
+    Cryppo::EncryptionStrategies::Rsa4096
+    Cryppo::EncryptionStrategies::EncryptionStrategy.strategies
+  end
+
+  def derivation_strategies
+    Cryppo::KeyDerivationStrategies::Pbkdf2Hmac
+    Cryppo::KeyDerivationStrategies::KeyDerivationStrategy.strategies
+  end
+
   extend EncryptionValues::EncryptionKey::Helpers
 
   def encryption_strategy_by_name(strategy_name)
@@ -124,6 +136,7 @@ module Cryppo
     EncryptionValues::RsaSignature.new(signature, data).serialize
   end
 
+  # should be #load
   def load_rsa_signature(serialized_payload)
     signed, signing_strategy, encoded_signature, data = serialized_payload.split('.')
     if signed == "Sign" && signing_strategy == "Rsa4096"

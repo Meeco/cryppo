@@ -12,6 +12,17 @@ module Cryppo
         self.class.name.split('::').last
       end
 
+      @@strategies = []
+
+      def self.register(klass)
+        name = klass.name.split('::').last
+        @@strategies << name
+      end
+
+      def self.strategies
+        @@strategies
+      end
+
       def generate_key
         raise NotImplementedError, 'must implement the `generate_key` method.  Ensure the returned key is wrapped using `wrap_key`'
       end

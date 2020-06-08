@@ -8,6 +8,17 @@ module Cryppo
         self.class.name.split('::').last
       end
 
+      @@strategies = []
+
+      def self.register(klass)
+        name = klass.name.split('::').last
+        @@strategies << name
+      end
+
+      def self.strategies
+        @@strategies
+      end
+
       def generate_derived_key(_key, key_length: 32)
         raise NotImplementedError, 'must implement the `generate_derived_key` method'
       end
