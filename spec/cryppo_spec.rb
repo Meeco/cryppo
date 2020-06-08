@@ -156,7 +156,11 @@ RSpec.describe Cryppo do
 
     it 'signing with a private key' do
       key = OpenSSL::PKey::RSA.new(4096)
-      serialized_signature = Cryppo.sign_with_private_key(key.to_s, data)
+      signature = Cryppo.sign_with_private_key(key.to_s, data)
+
+      expect(signature).to be_a(Cryppo::EncryptionValues::RsaSignature)
+
+      serialized_signature = signature.serialize
 
       expect(serialized_signature).not_to be_nil
       expect(serialized_signature).to be_a(String)
@@ -164,7 +168,11 @@ RSpec.describe Cryppo do
 
     it 'verifying with a public key' do
       key = OpenSSL::PKey::RSA.new(4096)
-      serialized_signature = Cryppo.sign_with_private_key(key.to_s, data)
+      signature = Cryppo.sign_with_private_key(key.to_s, data)
+
+      expect(signature).to be_a(Cryppo::EncryptionValues::RsaSignature)
+
+      serialized_signature = signature.serialize
 
       signature_object = Cryppo.load_rsa_signature(serialized_signature)
 
