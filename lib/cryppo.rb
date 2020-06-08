@@ -11,6 +11,9 @@ module Cryppo
   UnsupportedKeyDerivationStrategy = Class.new(Error)
   CoercionOfEncryptedKeyToString = Class.new(Error)
   UnsupportedSigningStrategy = Class.new(Error)
+  InvalidSerializedValue = Class.new(Error)
+
+  autoload :Serialization, 'cryppo/serialization'
 
   module EncryptionStrategies
     autoload :EncryptionStrategy, 'cryppo/encryption_strategies/encryption_strategy'
@@ -110,23 +113,7 @@ module Cryppo
   end
 
   def load(serialized_payload)
-    encryption_strategy_name, encoded_encrypted_data, encoded_encryption_artefacts, key_derivation_strategy_name, encoded_derivation_artefacts = serialized_payload.split('.')
-
-    encryption_strategy = encryption_strategy_by_name(encryption_strategy_name).new
-    encrypted_data = Base64.urlsafe_decode64(encoded_encrypted_data)
-    serialized_encryption_artefacts = YAML.safe_load(Base64.urlsafe_decode64(encoded_encryption_artefacts))
-    encryption_artefacts = encryption_strategy.deserialize_artefacts(serialized_encryption_artefacts)
-    payload = EncryptionValues::EncryptedData.new(encryption_strategy, encrypted_data, **encryption_artefacts)
-
-    if key_derivation_strategy_name
-      key_derivation_strategy = key_derivation_strategy_by_name(key_derivation_strategy_name).new
-      serialized_derivation_artefacts = YAML.safe_load(Base64.urlsafe_decode64(encoded_derivation_artefacts))
-      derivation_artefacts = key_derivation_strategy.deserialize_artefacts(serialized_derivation_artefacts)
-      derived_key_value = EncryptionValues::DerivedKey.new(key_derivation_strategy, nil, **derivation_artefacts)
-      payload = EncryptionValues::EncryptedDataWithDerivedKey.new(payload, derived_key_value)
-    end
-
-    payload
+    Cryppo::Serialization.load(serialized_payload)
   end
 
   def sign_with_private_key(private_key_string, data)
@@ -136,13 +123,4 @@ module Cryppo
     EncryptionValues::RsaSignature.new(signature, data)
   end
 
-  # should be #load
-  def load_rsa_signature(serialized_payload)
-    signed, signing_strategy, encoded_signature, data = serialized_payload.split('.')
-    if signed == "Sign" && signing_strategy == "Rsa4096"
-      EncryptionValues::RsaSignature.new(Base64.urlsafe_decode64(encoded_signature), Base64.urlsafe_decode64(data))
-    else
-      raise UnsupportedSigningStrategy, "Serialized RSA signature expected"
-    end
-  end
 end

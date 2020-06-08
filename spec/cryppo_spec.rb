@@ -174,7 +174,7 @@ RSpec.describe Cryppo do
 
       serialized_signature = signature.serialize
 
-      signature_object = Cryppo.load_rsa_signature(serialized_signature)
+      signature_object = Cryppo.load(serialized_signature)
 
       expect(signature_object.verify(key.public_key.to_s)).to eq(true)
     end

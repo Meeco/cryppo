@@ -107,10 +107,10 @@ For authentication purposes, a sender can sign a message with their private key,
 
 ```ruby
 # accepts the private key as a string, and the data to sign
-serialized_signature = Cryppo.sign_with_private_key(private_key_string, data)
+serialized_signature = Cryppo.sign_with_private_key(private_key_string, data).serialize
 
 # takes serialized signature and returns object of type Cryppo::EncryptionValues::RsaSignature
-signature = Cryppo.load_rsa_signature(serialized_signature)
+signature = Cryppo.load(serialized_signature)
 
 # will return true if the private and public keys form a keypair
 signature.verify(public_key_string)
