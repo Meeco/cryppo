@@ -2,6 +2,7 @@ require 'yaml'
 require 'base64'
 require 'openssl'
 require 'securerandom'
+require 'bson'
 
 module Cryppo
   module_function
