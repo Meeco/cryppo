@@ -81,8 +81,8 @@ module Cryppo::Serialization
 
   def load_encryption_artefacts_as_bson(encoded_encryption_artefacts)
     load_artefacts_as_bson(encoded_encryption_artefacts) do |map|
-      map['at'] = map['at'].data
-      map['iv'] = map['iv'].data
+      map['at'] = map['at']&.data
+      map['iv'] = map['iv']&.data
     end
   end
 
@@ -97,7 +97,6 @@ module Cryppo::Serialization
     buffer = BSON::ByteBuffer.new
     buffer.put_bytes(artefacts)
     map = Hash.from_bson(buffer)
-    # map['iv'] = map['iv'].data
     yield map
     map
   end
