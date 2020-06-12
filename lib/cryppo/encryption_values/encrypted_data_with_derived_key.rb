@@ -3,6 +3,7 @@ module Cryppo
     class EncryptedDataWithDerivedKey
 
       attr_reader :encrypted_data_value, :derived_key_value
+      attr_accessor :loaded_from_legacy_version
 
       def initialize(encrypted_data_value, derived_key_value)
         @encrypted_data_value = encrypted_data_value

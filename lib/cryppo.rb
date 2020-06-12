@@ -94,13 +94,11 @@ module Cryppo
     EncryptionValues::DerivedKey.new(key_derivation_strategy, nil, **derivation_artefacts)
   end
 
-  # TODO write specs
   def decrypt(encryption_strategy_name, key, encrypted_data, encryption_artefacts = {})
     encrypted_data = to_encrypted_data_value(encryption_strategy_name, encrypted_data, **encryption_artefacts)
     encrypted_data.decrypt(key)
   end
 
-  # TODO maybe write specs?
   def decrypt_with_derived_key(encryption_strategy_name, key_derivation_strategy_name, key, encrypted_data, encryption_artefacts, derivation_artefacts)
     encrypted_data = to_encrypted_data_value(encryption_strategy_name, encrypted_data, **encryption_artefacts)
     derived_key = to_derived_key_value(key_derivation_strategy_name, **derivation_artefacts)
@@ -115,6 +113,14 @@ module Cryppo
 
   def load(serialized_payload)
     Cryppo::Serialization.load(serialized_payload)
+  end
+
+  def serialization_format_upgrade_needed?(serialized_payload)
+    !!Cryppo::Serialization.load(serialized_payload).loaded_from_legacy_version
+  end
+
+  def upgrade_serialization_format(serialized_payload)
+    Cryppo::Serialization.load(serialized_payload).serialize
   end
 
   def sign_with_private_key(private_key_string, data)

@@ -2,6 +2,7 @@ module Cryppo
   module EncryptionValues
     class RsaSignature
       attr_reader :signature, :data
+      attr_accessor :loaded_from_legacy_version
 
       def initialize(signature, data)
         @signature = signature

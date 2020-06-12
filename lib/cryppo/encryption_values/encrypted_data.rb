@@ -4,6 +4,8 @@ module Cryppo
 
       attr_reader :encryption_strategy, :encrypted_data, :encryption_artefacts
 
+      attr_accessor :loaded_from_legacy_version
+
       def initialize(encryption_strategy, encrypted_data, **encryption_artefacts)
         @encrypted_data = encrypted_data
         @encryption_strategy = encryption_strategy
