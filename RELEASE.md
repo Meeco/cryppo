@@ -10,6 +10,12 @@ PATCH version when you make backwards-compatible bug fixes
 
 ## Unreleased
 
+## [0.5.1] - 2020-06-19
+
+* Added BSON based serialization as default format
+* Added compatibility test for different Cryppo ports e.g Cryppo-js
+* Supports legacy serialization for backward compatibility 
+
 ## [0.4.1] - 2010-03-18
 
 * RSA signing an verifying
