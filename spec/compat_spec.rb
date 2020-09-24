@@ -22,7 +22,7 @@ RSpec.describe Cryppo do
         key = Cryppo::EncryptionValues::EncryptionKey.new(Base64.urlsafe_decode64(key))
       end
       decrypted = encrypted.decrypt(key)
-      expect(decrypted).to eq(expected_decryption_result)
+      expect(decrypted.force_encoding("UTF-8")).to eq(expected_decryption_result)
     end
   end
 
@@ -44,7 +44,7 @@ RSpec.describe Cryppo do
       encrypted = Cryppo.load(serialized)
       decrypted = encrypted.decrypt(passphrase)
 
-      expect(decrypted).to eq(expected_decryption_result)
+      expect(decrypted.force_encoding("UTF-8")).to eq(expected_decryption_result)
     end
   end
 
