@@ -5,8 +5,8 @@ require "cryppo/version"
 Gem::Specification.new do |spec|
   spec.name          = "cryppo"
   spec.version       = Cryppo::VERSION
-  spec.authors       = ["Brent Jacobs", "Stephen de Bruin"]
-  spec.email         = ["bjacobs@nextfaze.com", "sdebruin@nextfaze.com"]
+  spec.authors       = ["Meeco"]
+  spec.email         = ["info@meeco.me"]
 
   spec.summary       = "An encryption library"
   spec.description   = "Cryppo is a cryptographic library that enables you to encrypt and decrypt data.  Pick an encryption strategy and encrypt away!"
