@@ -36,7 +36,6 @@ module Cryppo::Serialization
     elsif encoded_encryption_artefacts[0..0] == CURRENT_VERSION_OF_ENCRYPTION_ARTEFACTS
       [load_encryption_artefacts_as_bson(encoded_encryption_artefacts), false]
     else
-      # pp encoded_encryption_artefacts
       raise ::Cryppo::InvalidSerializedValue, 'unknown serialization format'
     end
 

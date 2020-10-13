@@ -6,7 +6,7 @@ module Cryppo
 
       attr_reader :key_derivation_strategy, :derived_key, :derivation_artefacts
 
-      def initialize(key_derivation_strategy, derived_key, **derivation_artefacts)
+      def initialize(key_derivation_strategy, derived_key, derivation_artefacts)
         @key_derivation_strategy = key_derivation_strategy
         @derived_key = wrap_encryption_key(derived_key)
         @derivation_artefacts = derivation_artefacts

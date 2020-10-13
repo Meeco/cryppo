@@ -84,24 +84,24 @@ module Cryppo
     EncryptionValues::EncryptedDataWithDerivedKey.new(encrypted_data_value, derived_key_value)
   end
 
-  def to_encrypted_data_value(encryption_strategy_name, encrypted_data, **encryption_artefacts)
+  def to_encrypted_data_value(encryption_strategy_name, encrypted_data, encryption_artefacts)
     encryption_strategy = encryption_strategy_by_name(encryption_strategy_name).new
-    EncryptionValues::EncryptedData.new(encryption_strategy, encrypted_data, **encryption_artefacts)
+    EncryptionValues::EncryptedData.new(encryption_strategy, encrypted_data, encryption_artefacts)
   end
 
-  def to_derived_key_value(key_derivation_strategy_name, **derivation_artefacts)
+  def to_derived_key_value(key_derivation_strategy_name, derivation_artefacts)
     key_derivation_strategy = key_derivation_strategy_by_name(key_derivation_strategy_name).new
-    EncryptionValues::DerivedKey.new(key_derivation_strategy, nil, **derivation_artefacts)
+    EncryptionValues::DerivedKey.new(key_derivation_strategy, nil, derivation_artefacts)
   end
 
   def decrypt(encryption_strategy_name, key, encrypted_data, encryption_artefacts = {})
-    encrypted_data = to_encrypted_data_value(encryption_strategy_name, encrypted_data, **encryption_artefacts)
+    encrypted_data = to_encrypted_data_value(encryption_strategy_name, encrypted_data, encryption_artefacts)
     encrypted_data.decrypt(key)
   end
 
   def decrypt_with_derived_key(encryption_strategy_name, key_derivation_strategy_name, key, encrypted_data, encryption_artefacts, derivation_artefacts)
-    encrypted_data = to_encrypted_data_value(encryption_strategy_name, encrypted_data, **encryption_artefacts)
-    derived_key = to_derived_key_value(key_derivation_strategy_name, **derivation_artefacts)
+    encrypted_data = to_encrypted_data_value(encryption_strategy_name, encrypted_data, encryption_artefacts)
+    derived_key = to_derived_key_value(key_derivation_strategy_name, derivation_artefacts)
     encrypted_data_with_derived_key = EncryptionValues::EncryptedDataWithDerivedKey.new(encrypted_data, derived_key)
     encrypted_data_with_derived_key.decrypt(key)
   end

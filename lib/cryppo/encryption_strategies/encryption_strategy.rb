@@ -35,11 +35,11 @@ module Cryppo
         JSON.parse(decrypt(key, encoded_hash)).symbolize_keys
       end
 
-      def encrypt(_key, _data, **_options)
+      def encrypt(_key, _data, _options)
         raise NotImplementedError, 'must implement the `encrypt` method'
       end
 
-      def decrypt(_key, _encrypted_data, **_options)
+      def decrypt(_key, _encrypted_data, _options)
         raise NotImplementedError, 'must implement the `decrypt` method'
       end
 
