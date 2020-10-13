@@ -124,7 +124,7 @@ module Cryppo
   end
 
   def sign_with_private_key(private_key_string, data)
-    digest = OpenSSL::Digest::SHA256.new
+    digest = OpenSSL::Digest.new('SHA256')
     private_key = OpenSSL::PKey::RSA.new(private_key_string)
     signature = private_key.sign(digest, data)
     EncryptionValues::RsaSignature.new(signature, data)

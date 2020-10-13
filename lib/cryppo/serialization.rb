@@ -10,13 +10,14 @@ module Cryppo::Serialization
   def load(serialized_payload)
     chunks = serialized_payload.split('.')
 
-    if chunks.size == 5
+    case chunks.size
+    when 5
       load_encrypted_data_with_derived_key(*chunks)
 
-    elsif chunks.size == 3
+    when 3
       load_encryption_value(*chunks)
 
-    elsif chunks.size == 4
+    when 4
       load_rsa_signature(*chunks)
 
     else
@@ -97,7 +98,7 @@ module Cryppo::Serialization
   end
 
   def load_artefacts_as_bson(artefacts)
-    artefacts = artefacts[1..-1]
+    artefacts = artefacts[1..]
     buffer = BSON::ByteBuffer.new
     buffer.put_bytes(artefacts)
     map = Hash.from_bson(buffer)

@@ -11,7 +11,7 @@ module Cryppo
 
       def verify(public_key_string)
         public_key = OpenSSL::PKey::RSA.new(public_key_string)
-        public_key.verify(OpenSSL::Digest::SHA256.new, @signature, @data)
+        public_key.verify(OpenSSL::Digest.new('SHA256'), @signature, @data)
       end
 
       def serialize
