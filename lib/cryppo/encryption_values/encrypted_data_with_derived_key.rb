@@ -1,4 +1,7 @@
+require 'forwardable'
+
 module Cryppo
+
   module EncryptionValues
     class EncryptedDataWithDerivedKey
 
