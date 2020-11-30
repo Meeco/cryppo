@@ -10,11 +10,15 @@ PATCH version when you make backwards-compatible bug fixes
 
 ## Unreleased
 
+## [0.5.2] = 2020-11-30
+
+* Added `required forwardable` clause to enforce initialization of EncryptedDataWithDerivedKey::Forwardable
+
 ## [0.5.1] - 2020-06-19
 
 * Added BSON based serialization as default format
 * Added compatibility test for different Cryppo ports e.g Cryppo-js
-* Supports legacy serialization for backward compatibility 
+* Supports legacy serialization for backward compatibility
 
 ## [0.4.1] - 2010-03-18
 
