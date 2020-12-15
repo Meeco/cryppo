@@ -24,7 +24,11 @@ module Cryppo
     autoload :Rsa4096, 'cryppo/encryption_strategies/rsa4096'
 
     def self.by_name(strategy_name)
-      const_get(strategy_name)
+      const_get(strategy_name).tap do |klass|
+        unless klass < Cryppo::EncryptionStrategies::EncryptionStrategy
+          raise UnsupportedEncryptionStrategy.new("#{klass} is not a Cryppo::EncryptionStrategies::EncryptionStrategy")
+        end
+      end
     rescue NameError => e
       raise UnsupportedEncryptionStrategy, e.message
     end
@@ -43,7 +47,11 @@ module Cryppo
     autoload :Pbkdf2Hmac, 'cryppo/key_derivation_strategies/pbkdf2_hmac'
 
     def self.by_name(strategy_name)
-      const_get(strategy_name)
+      const_get(strategy_name).tap do |klass|
+        unless klass < Cryppo::KeyDerivationStrategies::KeyDerivationStrategy
+          raise UnsupportedKeyDerivationStrategy.new("#{klass} is not a Cryppo::KeyDerivationStrategies::KeyDerivationStrategy")
+        end
+      end
     rescue NameError => e
       raise UnsupportedKeyDerivationStrategy, e.message
     end
