@@ -62,7 +62,16 @@ RSpec.describe Cryppo do
       signature = Cryppo.load(serialized_signature)
 
       public_key = OpenSSL::PKey::RSA.new(public_pem)
+
+      # with a OpenSSL::PKey::RSA instance
       expect(signature.verify(public_key)).to eq(true)
+      # with a PEM
+      expect(signature.verify(public_pem)).to eq(true)
+
+      # with a OpenSSL::PKey::RSA instance
+      expect(Cryppo.verify(signature, public_key)).to eq(true)
+      # with a PEM
+      expect(Cryppo.verify(signature, public_pem)).to eq(true)
 
       expect(signature.serialize).to eq(serialized_signature)
     end

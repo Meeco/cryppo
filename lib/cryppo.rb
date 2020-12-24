@@ -138,4 +138,18 @@ module Cryppo
     EncryptionValues::RsaSignature.new(signature, data)
   end
 
+  def verify(rsa_signature, public_key)
+
+    unless rsa_signature.is_a?(Cryppo::EncryptionValues::RsaSignature)
+      raise ArgumentError.new("The first argument to Cryppo.verify must be an instance of Cryppo::EncryptionValues::RsaSignature")
+    end
+
+    unless public_key.is_a?(String) || public_key.is_a?(OpenSSL::PKey::RSA)
+      raise ArgumentError.new(
+        "The second argument to Cryppo.verify must be a string with a PEM or an instance of OpenSSL::PKey::RSA"
+      )
+    end
+
+    rsa_signature.verify(public_key)
+  end
 end
