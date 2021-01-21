@@ -18,13 +18,13 @@ module Cryppo
         encoded_encrypted_data = Base64.urlsafe_encode64(encrypted_data)
         serialized_artefacts = encryption_strategy.serialize_artefacts(encryption_artefacts)
 
-        payload = serialize_artefacts_for_latest_version(serialized_artefacts)
+        payload = serialize_artefacts(serialized_artefacts)
 
         encoded_artefacts = Base64.urlsafe_encode64(payload)
         '%s.%s.%s' % [encryption_strategy.strategy_name, encoded_encrypted_data, encoded_artefacts]
       end
 
-      def serialize_artefacts_for_latest_version(serialized_artefacts)
+      def serialize_artefacts(serialized_artefacts)
 
         ['iv', 'at'].each do |k|
           value = serialized_artefacts[k]

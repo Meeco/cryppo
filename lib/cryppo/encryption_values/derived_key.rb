@@ -19,13 +19,13 @@ module Cryppo
       def serialize
         serialized_artefacts = key_derivation_strategy.serialize_artefacts(derivation_artefacts)
 
-        payload = serialize_artefacts_for_latest_version(serialized_artefacts)
+        payload = serialize_artefacts(serialized_artefacts)
 
         encoded_artefacts = Base64.urlsafe_encode64(payload)
         '%s.%s' % [key_derivation_strategy.strategy_name, encoded_artefacts]
       end
 
-      def serialize_artefacts_for_latest_version(serialized_artefacts)
+      def serialize_artefacts(serialized_artefacts)
         serialized_artefacts['iv'] = BSON::Binary.new(serialized_artefacts['iv'], :generic)
         Cryppo::Serialization::CURRENT_VERSION_OF_DERIVATION_ARTEFACTS + serialized_artefacts.to_bson.to_s
       end
