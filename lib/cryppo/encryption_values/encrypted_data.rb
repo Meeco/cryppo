@@ -4,8 +4,6 @@ module Cryppo
 
       attr_reader :encryption_strategy, :encrypted_data, :encryption_artefacts
 
-      attr_accessor :loaded_from_legacy_version
-
       def initialize(encryption_strategy, encrypted_data, encryption_artefacts = {})
         @encrypted_data = encrypted_data
         @encryption_strategy = encryption_strategy
@@ -16,18 +14,11 @@ module Cryppo
         encryption_strategy.decrypt(key, self)
       end
 
-      def serialize(version: :latest_version)
+      def serialize
         encoded_encrypted_data = Base64.urlsafe_encode64(encrypted_data)
         serialized_artefacts = encryption_strategy.serialize_artefacts(encryption_artefacts)
 
-        payload = case version
-        when :legacy
-          serialized_artefacts.to_yaml
-        when :latest_version
-          serialize_artefacts_for_latest_version(serialized_artefacts)
-        else
-          raise ::Cryppo::InvalidSerializedValue, "unknown serialization format: {version}"
-        end
+        payload = serialize_artefacts_for_latest_version(serialized_artefacts)
 
         encoded_artefacts = Base64.urlsafe_encode64(payload)
         '%s.%s.%s' % [encryption_strategy.strategy_name, encoded_encrypted_data, encoded_artefacts]

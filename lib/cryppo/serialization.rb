@@ -31,18 +31,16 @@ module Cryppo::Serialization
 
     encoded_encryption_artefacts = Base64.urlsafe_decode64(encoded_encryption_artefacts_base64)
 
-    encryption_artefacts_hash, loaded_from_legacy_version = if encoded_encryption_artefacts[0..2] == '---'
-      [load_artefacts_as_yaml(encoded_encryption_artefacts), true]
+    encryption_artefacts_hash = if encoded_encryption_artefacts[0..2] == '---'
+      raise ::Cryppo::InvalidSerializedValue, 'support for yaml based format has been dropped since v0.6.0'
     elsif encoded_encryption_artefacts[0..0] == CURRENT_VERSION_OF_ENCRYPTION_ARTEFACTS
-      [load_encryption_artefacts_as_bson(encoded_encryption_artefacts), false]
+      load_encryption_artefacts_as_bson(encoded_encryption_artefacts)
     else
       raise ::Cryppo::InvalidSerializedValue, 'unknown serialization format'
     end
 
     encryption_artefacts = encryption_strategy.deserialize_artefacts(encryption_artefacts_hash)
-    ::Cryppo::EncryptionValues::EncryptedData.new(encryption_strategy, encrypted_data, **encryption_artefacts).tap do |res|
-      res.loaded_from_legacy_version = loaded_from_legacy_version
-    end
+    ::Cryppo::EncryptionValues::EncryptedData.new(encryption_strategy, encrypted_data, **encryption_artefacts)
   end
 
   def load_encrypted_data_with_derived_key(encryption_strategy_name, encoded_encrypted_data, encoded_encryption_artefacts, key_derivation_strategy_name, encoded_derivation_artefacts)
@@ -53,19 +51,17 @@ module Cryppo::Serialization
 
     encoded_derivation_artefacts = Base64.urlsafe_decode64(encoded_derivation_artefacts)
 
-    derivation_artefacts_hash, loaded_from_legacy_version = if encoded_derivation_artefacts[0..2] == '---'
-      [load_artefacts_as_yaml(encoded_derivation_artefacts), true]
+    derivation_artefacts_hash = if encoded_derivation_artefacts[0..2] == '---'
+      raise ::Cryppo::InvalidSerializedValue, 'support for yaml based format has been dropped from v0.6.0'
     elsif encoded_derivation_artefacts[0..0] == CURRENT_VERSION_OF_DERIVATION_ARTEFACTS
-      [load_derivation_artefacts_as_bson(encoded_derivation_artefacts), false]
+      load_derivation_artefacts_as_bson(encoded_derivation_artefacts)
     else
       raise ::Cryppo::InvalidSerializedValue, 'unknown serialization format'
     end
 
     derivation_artefacts = key_derivation_strategy.deserialize_artefacts(derivation_artefacts_hash)
     derived_key_value = ::Cryppo::EncryptionValues::DerivedKey.new(key_derivation_strategy, nil, **derivation_artefacts)
-    ::Cryppo::EncryptionValues::EncryptedDataWithDerivedKey.new(payload, derived_key_value).tap do |res|
-      res.loaded_from_legacy_version = loaded_from_legacy_version
-    end
+    ::Cryppo::EncryptionValues::EncryptedDataWithDerivedKey.new(payload, derived_key_value)
   end
 
   def load_rsa_signature(signed, signing_strategy, encoded_signature, data)
@@ -77,10 +73,6 @@ module Cryppo::Serialization
     else
       raise UnsupportedSigningStrategy, "Serialized RSA signature expected"
     end
-  end
-
-  def load_artefacts_as_yaml(encoded_encryption_artefacts)
-    YAML.safe_load(encoded_encryption_artefacts)
   end
 
   def load_encryption_artefacts_as_bson(encoded_encryption_artefacts)

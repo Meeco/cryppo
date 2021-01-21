@@ -123,14 +123,6 @@ module Cryppo
     Cryppo::Serialization.load(serialized_payload)
   end
 
-  def serialization_format_upgrade_needed?(serialized_payload)
-    !!Cryppo::Serialization.load(serialized_payload).loaded_from_legacy_version
-  end
-
-  def upgrade_serialization_format(serialized_payload)
-    Cryppo::Serialization.load(serialized_payload).serialize
-  end
-
   def sign_with_private_key(private_key_string, data)
     digest = OpenSSL::Digest.new('SHA256')
     private_key = OpenSSL::PKey::RSA.new(private_key_string)

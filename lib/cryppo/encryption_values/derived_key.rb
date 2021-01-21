@@ -16,17 +16,10 @@ module Cryppo
         key_derivation_strategy.build_derived_key(key, self)
       end
 
-      def serialize(version: :latest_version)
+      def serialize
         serialized_artefacts = key_derivation_strategy.serialize_artefacts(derivation_artefacts)
 
-        payload = case version
-        when :legacy
-          serialized_artefacts.to_yaml
-        when :latest_version
-          serialize_artefacts_for_latest_version(serialized_artefacts)
-        else
-          raise ::Cryppo::InvalidSerializedValue, "unknown serialization format: {version}"
-        end
+        payload = serialize_artefacts_for_latest_version(serialized_artefacts)
 
         encoded_artefacts = Base64.urlsafe_encode64(payload)
         '%s.%s' % [key_derivation_strategy.strategy_name, encoded_artefacts]
