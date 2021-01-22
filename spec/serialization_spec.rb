@@ -44,6 +44,19 @@ RSpec.describe 'Serialization' do
 
       end
     end
+
+    it 'fail to load a message if it is encoded with basic base64 variant (not url safe)' do
+      cryppo_messages_with_plain_base64_encoding = [
+        'Aes256Gcm.MKqNIBDJd0GiSuKRtJVW.QUAAAAAFaXYADAAAAACFQp/FfChOjJ+C0lgFYXQAEAAAAABGeM6DOVX61jAE',
+        'Sign.Rsa4096.MKqNIBDJd0GiSuKRtJVW.QUAAAAAFaXYADAAAAACFQp/FfChOjJ+C0lgFYXQAEAAAAABGeM6DOVX61jAE',
+        'Aes256Gcm.MKqNIBDJd0GiSuKRtJVW.QUAAAAAFaXYADAAAAACFQp/FfChOjJ+C0lgFYXQAEAAAAABGeM6DOVX61jAE.Pbkdf2Hmac.SzAAAAAQaQA-TgAABWl2ABQAAAAAfpc0yPy0psETSKUSYE8pw53TTyMQbAAgAAAAAA=='
+      ]
+      cryppo_messages_with_plain_base64_encoding.each do |msg|
+        expect {
+          Cryppo.load(msg)
+        }.to raise_error(::Cryppo::UnsupportedBase64Encoding)
+      end
+    end
   end
 
   context 'with a derived key' do

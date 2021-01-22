@@ -13,6 +13,7 @@ module Cryppo
   CoercionOfEncryptedKeyToString = Class.new(Error)
   UnsupportedSigningStrategy = Class.new(Error)
   InvalidSerializedValue = Class.new(Error)
+  UnsupportedBase64Encoding = Class.new(Error)
 
   autoload :Serialization, 'cryppo/serialization'
 
