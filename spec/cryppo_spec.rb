@@ -166,6 +166,14 @@ RSpec.describe Cryppo do
       expect(serialized_signature).to be_a(String)
     end
 
+    it 'fail to sign too large data set' do
+      msg = "a" * 513
+      key = OpenSSL::PKey::RSA.new(4096)
+      expect {
+        Cryppo.sign_with_private_key(key.to_s, msg)
+      }.to raise_error(::Cryppo::SignedRsaMessageTooLong)
+    end
+
     it 'verifying with a public key' do
       key = OpenSSL::PKey::RSA.new(4096)
       signature = Cryppo.sign_with_private_key(key.to_s, data)

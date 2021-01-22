@@ -14,6 +14,7 @@ module Cryppo
   UnsupportedSigningStrategy = Class.new(Error)
   InvalidSerializedValue = Class.new(Error)
   UnsupportedBase64Encoding = Class.new(Error)
+  SignedRsaMessageTooLong = Class.new(Error)
 
   autoload :Serialization, 'cryppo/serialization'
 
