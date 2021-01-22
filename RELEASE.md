@@ -8,9 +8,13 @@ MAJOR version when you make incompatible API changes
 MINOR version when you add functionality in a backwards-compatible manner
 PATCH version when you make backwards-compatible bug fixes
 
-## Unreleased
+## [0.6.0] - 2021-01-25
 
-## [0.5.2] = 2020-11-30
+* dropped support for legacy format (yaml)
+* added hard limit to data which can be signed with RSA signature to 512 bytes
+* added explicit check against base64 RFC 2045 encoding, rendering it as incompatible (the only supported base64 is a URL safe variant)
+
+## [0.5.2] - 2020-11-30
 
 * Added `required forwardable` clause to enforce initialization of EncryptedDataWithDerivedKey::Forwardable
 

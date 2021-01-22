@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    cryppo (0.5.2)
+    cryppo (0.6.0)
       bson (> 4)
       openssl (> 2)
 
