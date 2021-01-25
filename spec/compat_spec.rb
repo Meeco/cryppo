@@ -16,13 +16,21 @@ RSpec.describe Cryppo do
       key = one_test['key']
       serialized = one_test['serialized']
 
-      encrypted = Cryppo.load(serialized)
-
-      if encryption_strategy == 'Aes256Gcm'
-        key = Cryppo::EncryptionValues::EncryptionKey.new(Base64.urlsafe_decode64(key))
+      begin
+        encrypted = Cryppo.load(serialized)
+      rescue ::Cryppo::InvalidSerializedValue => e
       end
-      decrypted = encrypted.decrypt(key)
-      expect(decrypted.force_encoding("UTF-8")).to eq(expected_decryption_result)
+
+      if e.nil?
+        if encryption_strategy == 'Aes256Gcm'
+          key = Cryppo::EncryptionValues::EncryptionKey.new(Base64.urlsafe_decode64(key))
+        end
+        decrypted = encrypted.decrypt(key)
+        expect(decrypted.force_encoding("UTF-8")).to eq(expected_decryption_result)
+      else
+        expect(e.message).to eq("support for yaml based format has been dropped since v0.6.0")
+      end
+
     end
   end
 
@@ -41,10 +49,16 @@ RSpec.describe Cryppo do
       passphrase = one_test['passphrase']
       serialized = one_test['serialized']
 
-      encrypted = Cryppo.load(serialized)
-      decrypted = encrypted.decrypt(passphrase)
-
-      expect(decrypted.force_encoding("UTF-8")).to eq(expected_decryption_result)
+      begin
+        encrypted = Cryppo.load(serialized)
+      rescue ::Cryppo::InvalidSerializedValue => e
+      end
+      if e.nil?
+        decrypted = encrypted.decrypt(passphrase)
+        expect(decrypted.force_encoding("UTF-8")).to eq(expected_decryption_result)
+      else
+        expect(e.message).to eq("support for yaml based format has been dropped since v0.6.0")
+      end
     end
   end
 

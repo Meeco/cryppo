@@ -13,6 +13,8 @@ module Cryppo
   CoercionOfEncryptedKeyToString = Class.new(Error)
   UnsupportedSigningStrategy = Class.new(Error)
   InvalidSerializedValue = Class.new(Error)
+  UnsupportedBase64Encoding = Class.new(Error)
+  SignedRsaMessageTooLong = Class.new(Error)
 
   autoload :Serialization, 'cryppo/serialization'
 
@@ -121,14 +123,6 @@ module Cryppo
 
   def load(serialized_payload)
     Cryppo::Serialization.load(serialized_payload)
-  end
-
-  def serialization_format_upgrade_needed?(serialized_payload)
-    !!Cryppo::Serialization.load(serialized_payload).loaded_from_legacy_version
-  end
-
-  def upgrade_serialization_format(serialized_payload)
-    Cryppo::Serialization.load(serialized_payload).serialize
   end
 
   def sign_with_private_key(private_key_string, data)

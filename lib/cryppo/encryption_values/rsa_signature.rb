@@ -1,10 +1,16 @@
 module Cryppo
   module EncryptionValues
+
+    MESSAGE_MAX_SIZE_BYTES = 512
+
     class RsaSignature
       attr_reader :signature, :data
-      attr_accessor :loaded_from_legacy_version
 
       def initialize(signature, data)
+        if data.bytes.length > MESSAGE_MAX_SIZE_BYTES
+          raise ::Cryppo::SignedRsaMessageTooLong, "data too long to fit into serialization format, for data exceeding #{MESSAGE_MAX_SIZE_BYTES} bytes, consider signing hash of that data instead"
+        end
+
         @signature = signature
         @data = data
       end
