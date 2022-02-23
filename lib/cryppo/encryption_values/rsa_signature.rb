@@ -20,7 +20,7 @@ module Cryppo
         unless public_key.is_a?(String) || public_key.is_a?(OpenSSL::PKey::RSA)
           raise ArgumentError.new(
             "The argument to Cryppo::EncryptionValues::RsaSignature#verify must be "\
-              "a string with a PEM or an instance of OpenSSL::PKey::RSA"
+            "a string with a PEM or an instance of OpenSSL::PKey::RSA"
           )
         end
 
