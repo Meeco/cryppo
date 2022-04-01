@@ -28,15 +28,15 @@ Gem::Specification.new do |spec|
   spec.executables = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "openssl", "~> 2.2"
+  spec.add_dependency "openssl", "~> 3.0"
   spec.add_dependency "bson", "> 4.14"
 
-  spec.add_development_dependency "bundler", "~> 2.2"
+  spec.add_development_dependency "bundler", "> 0"
   spec.add_development_dependency "rake", "~> 13.0"
-  spec.add_development_dependency "rspec", "~> 3.11"
+  spec.add_development_dependency "rspec", "> 0"
   spec.add_development_dependency "pry", "> 0.14"
-  spec.add_development_dependency 'rubocop', '~> 1.25'
+  spec.add_development_dependency 'rubocop', '~> 1.26'
   spec.add_development_dependency 'rubocop-rake', '> 0'
-  spec.add_development_dependency 'rubocop-rspec', '~> 2.8'
+  spec.add_development_dependency 'rubocop-rspec', '~> 2.9'
   spec.add_development_dependency 'json', '> 2.6'
 end
