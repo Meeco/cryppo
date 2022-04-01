@@ -1,7 +1,6 @@
 module Cryppo
   module EncryptionValues
     class EncryptedData
-
       attr_reader :encryption_strategy, :encrypted_data, :encryption_artefacts
 
       def initialize(encryption_strategy, encrypted_data, encryption_artefacts = {})
@@ -21,12 +20,11 @@ module Cryppo
         payload = serialize_artefacts(serialized_artefacts)
 
         encoded_artefacts = Base64.urlsafe_encode64(payload)
-        '%s.%s.%s' % [encryption_strategy.strategy_name, encoded_encrypted_data, encoded_artefacts]
+        "%s.%s.%s" % [encryption_strategy.strategy_name, encoded_encrypted_data, encoded_artefacts]
       end
 
       def serialize_artefacts(serialized_artefacts)
-
-        ['iv', 'at'].each do |k|
+        ["iv", "at"].each do |k|
           value = serialized_artefacts[k]
           if value.is_a?(String)
             serialized_artefacts[k] = BSON::Binary.new(value, :generic)
@@ -35,7 +33,6 @@ module Cryppo
 
         Cryppo::Serialization::CURRENT_VERSION_OF_ENCRYPTION_ARTEFACTS + serialized_artefacts.to_bson.to_s
       end
-
     end
   end
 end

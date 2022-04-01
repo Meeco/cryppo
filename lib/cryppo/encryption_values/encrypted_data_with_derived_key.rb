@@ -1,10 +1,8 @@
-require 'forwardable'
+require "forwardable"
 
 module Cryppo
-
   module EncryptionValues
     class EncryptedDataWithDerivedKey
-
       attr_reader :encrypted_data_value, :derived_key_value
 
       def initialize(encrypted_data_value, derived_key_value)
@@ -22,7 +20,7 @@ module Cryppo
       end
 
       def serialize
-        '%s.%s' % [
+        "%s.%s" % [
           encrypted_data_value.serialize,
           derived_key_value.serialize
         ]
@@ -36,7 +34,6 @@ module Cryppo
 
       def_delegators :@encrypted_data_value, :encryption_strategy, :encrypted_data, :encryption_artefacts
       def_delegators :@derived_key_value, :key_derivation_strategy, :derived_key, :derivation_artefacts
-
     end
   end
 end

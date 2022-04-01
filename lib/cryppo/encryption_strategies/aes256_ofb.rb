@@ -1,9 +1,8 @@
 module Cryppo
   module EncryptionStrategies
     class Aes256Ofb < AesStrategy
-
       def cipher_name
-        'AES-256-OFB'
+        "AES-256-OFB"
       end
 
       Cryppo::EncryptionStrategies::EncryptionStrategy.register(self)
@@ -30,13 +29,12 @@ module Cryppo
       end
 
       def serialize_artefacts(artefacts)
-        { 'iv' => artefacts[:iv] }
+        {"iv" => artefacts[:iv]}
       end
 
       def deserialize_artefacts(payload)
-        { iv: payload['iv'] }
+        {iv: payload["iv"]}
       end
-
     end
   end
 end

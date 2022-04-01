@@ -1,8 +1,8 @@
-require 'yaml'
-require 'base64'
-require 'openssl'
-require 'securerandom'
-require 'bson'
+require "yaml"
+require "base64"
+require "openssl"
+require "securerandom"
+require "bson"
 
 module Cryppo
   module_function
@@ -16,14 +16,14 @@ module Cryppo
   UnsupportedBase64Encoding = Class.new(Error)
   SignedRsaMessageTooLong = Class.new(Error)
 
-  autoload :Serialization, 'cryppo/serialization'
+  autoload :Serialization, "cryppo/serialization"
 
   module EncryptionStrategies
-    autoload :EncryptionStrategy, 'cryppo/encryption_strategies/encryption_strategy'
-    autoload :AesStrategy, 'cryppo/encryption_strategies/aes_strategy'
-    autoload :Aes256Ofb, 'cryppo/encryption_strategies/aes256_ofb'
-    autoload :Aes256Gcm, 'cryppo/encryption_strategies/aes256_gcm'
-    autoload :Rsa4096, 'cryppo/encryption_strategies/rsa4096'
+    autoload :EncryptionStrategy, "cryppo/encryption_strategies/encryption_strategy"
+    autoload :AesStrategy, "cryppo/encryption_strategies/aes_strategy"
+    autoload :Aes256Ofb, "cryppo/encryption_strategies/aes256_ofb"
+    autoload :Aes256Gcm, "cryppo/encryption_strategies/aes256_gcm"
+    autoload :Rsa4096, "cryppo/encryption_strategies/rsa4096"
 
     def self.by_name(strategy_name)
       const_get(strategy_name).tap do |klass|
@@ -37,16 +37,16 @@ module Cryppo
   end
 
   module EncryptionValues
-    autoload :DerivedKey, 'cryppo/encryption_values/derived_key'
-    autoload :EncryptedDataWithDerivedKey, 'cryppo/encryption_values/encrypted_data_with_derived_key'
-    autoload :EncryptedData, 'cryppo/encryption_values/encrypted_data'
-    autoload :EncryptionKey, 'cryppo/encryption_values/encryption_key'
-    autoload :RsaSignature, 'cryppo/encryption_values/rsa_signature'
+    autoload :DerivedKey, "cryppo/encryption_values/derived_key"
+    autoload :EncryptedDataWithDerivedKey, "cryppo/encryption_values/encrypted_data_with_derived_key"
+    autoload :EncryptedData, "cryppo/encryption_values/encrypted_data"
+    autoload :EncryptionKey, "cryppo/encryption_values/encryption_key"
+    autoload :RsaSignature, "cryppo/encryption_values/rsa_signature"
   end
 
   module KeyDerivationStrategies
-    autoload :KeyDerivationStrategy, 'cryppo/key_derivation_strategies/key_derivation_strategy'
-    autoload :Pbkdf2Hmac, 'cryppo/key_derivation_strategies/pbkdf2_hmac'
+    autoload :KeyDerivationStrategy, "cryppo/key_derivation_strategies/key_derivation_strategy"
+    autoload :Pbkdf2Hmac, "cryppo/key_derivation_strategies/pbkdf2_hmac"
 
     def self.by_name(strategy_name)
       const_get(strategy_name).tap do |klass|
@@ -116,7 +116,7 @@ module Cryppo
     encrypted_data_with_derived_key.decrypt(key)
   end
 
-  def generate_encryption_key(encryption_strategy_name = 'Aes256Gcm')
+  def generate_encryption_key(encryption_strategy_name = "Aes256Gcm")
     encryption_strategy = encryption_strategy_by_name(encryption_strategy_name).new
     encryption_strategy.generate_key
   end
@@ -126,14 +126,13 @@ module Cryppo
   end
 
   def sign_with_private_key(private_key_string, data)
-    digest = OpenSSL::Digest.new('SHA256')
+    digest = OpenSSL::Digest.new("SHA256")
     private_key = OpenSSL::PKey::RSA.new(private_key_string)
     signature = private_key.sign(digest, data)
     EncryptionValues::RsaSignature.new(signature, data)
   end
 
   def verify(rsa_signature, public_key)
-
     unless rsa_signature.is_a?(Cryppo::EncryptionValues::RsaSignature)
       raise ArgumentError.new("The first argument to Cryppo.verify must be an instance of Cryppo::EncryptionValues::RsaSignature")
     end

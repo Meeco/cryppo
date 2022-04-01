@@ -1,7 +1,6 @@
 module Cryppo
   module EncryptionStrategies
     class Rsa4096 < EncryptionStrategy
-
       UnknownKeyPairType = Class.new(Cryppo::Error)
 
       Cryppo::EncryptionStrategies::EncryptionStrategy.register(self)
@@ -45,7 +44,7 @@ module Cryppo
           raise
         end
       rescue => _e
-        raise UnknownKeyPairType, 'Must be a PEM formatted string or an OpenSSL::PKey::RSA object: got %s' % [rsa_key]
+        raise UnknownKeyPairType, "Must be a PEM formatted string or an OpenSSL::PKey::RSA object: got %s" % [rsa_key]
       end
 
       def serialize_artefacts(_artefacts)
@@ -55,7 +54,6 @@ module Cryppo
       def deserialize_artefacts(_payload)
         {}
       end
-
     end
   end
 end

@@ -1,9 +1,8 @@
 module Cryppo
   module EncryptionStrategies
     class AesStrategy < EncryptionStrategy
-
       def cipher_name
-        raise NotImplementedError, 'must implement the `cipher_name` method'
+        raise NotImplementedError, "must implement the `cipher_name` method"
       end
 
       def new_cipher
@@ -18,7 +17,6 @@ module Cryppo
         key = new_cipher.random_key
         wrap_encryption_key(key)
       end
-
     end
   end
 end

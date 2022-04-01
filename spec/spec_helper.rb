@@ -18,13 +18,13 @@ end
 ##################################
 
 def aes_encryption_strategies
-  ['Aes256Ofb', 'Aes256Gcm']
+  ["Aes256Ofb", "Aes256Gcm"]
 end
 
 def all_encryption_strategies
-  aes_encryption_strategies + ['Rsa4096']
+  aes_encryption_strategies + ["Rsa4096"]
 end
 
 def actively_supported_encryption_strategies
-  ['Aes256Gcm', 'Rsa4096']
+  ["Aes256Gcm", "Rsa4096"]
 end

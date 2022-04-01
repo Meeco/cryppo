@@ -1,21 +1,19 @@
 module Cryppo
   module EncryptionStrategies
-
     EncryptionError = Class.new(Cryppo::Error)
     DecryptionError = Class.new(Cryppo::Error)
 
     class EncryptionStrategy
-
       include EncryptionValues::EncryptionKey::Helpers
 
       def strategy_name
-        self.class.name.split('::').last
+        self.class.name.split("::").last
       end
 
       @@strategies = []
 
       def self.register(klass)
-        name = klass.name.split('::').last
+        name = klass.name.split("::").last
         @@strategies << name
       end
 
@@ -24,7 +22,7 @@ module Cryppo
       end
 
       def generate_key
-        raise NotImplementedError, 'must implement the `generate_key` method.  Ensure the returned key is wrapped using `wrap_key`'
+        raise NotImplementedError, "must implement the `generate_key` method.  Ensure the returned key is wrapped using `wrap_key`"
       end
 
       def encrypt_hash(key, hash)
@@ -36,19 +34,19 @@ module Cryppo
       end
 
       def encrypt(_key, _data, _options)
-        raise NotImplementedError, 'must implement the `encrypt` method'
+        raise NotImplementedError, "must implement the `encrypt` method"
       end
 
       def decrypt(_key, _encrypted_data, _options)
-        raise NotImplementedError, 'must implement the `decrypt` method'
+        raise NotImplementedError, "must implement the `decrypt` method"
       end
 
       def serialize_artefacts(_artefacts)
-        raise NotImplementedError, 'must implement the `serialize_artefacts` method.  The method should return a hash with stringified keys.'
+        raise NotImplementedError, "must implement the `serialize_artefacts` method.  The method should return a hash with stringified keys."
       end
 
       def deserialize_artefacts(_payload)
-        raise NotImplementedError, 'must implement the `deserialize_artefacts` method.  The method should return a hash with stringified keys.'
+        raise NotImplementedError, "must implement the `deserialize_artefacts` method.  The method should return a hash with stringified keys."
       end
 
       protected

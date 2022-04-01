@@ -1,6 +1,5 @@
 module Cryppo
   module EncryptionValues
-
     MESSAGE_MAX_SIZE_BYTES = 512
 
     class RsaSignature
@@ -16,7 +15,6 @@ module Cryppo
       end
 
       def verify(public_key)
-
         unless public_key.is_a?(String) || public_key.is_a?(OpenSSL::PKey::RSA)
           raise ArgumentError.new(
             "The argument to Cryppo::EncryptionValues::RsaSignature#verify must be "\
@@ -30,7 +28,7 @@ module Cryppo
           public_key
         end
 
-        public_key.verify(OpenSSL::Digest.new('SHA256'), @signature, @data)
+        public_key.verify(OpenSSL::Digest.new("SHA256"), @signature, @data)
       end
 
       def serialize
@@ -38,7 +36,6 @@ module Cryppo
         data_base64 = Base64.urlsafe_encode64(@data)
         "Sign.Rsa4096.#{signature_base64}.#{data_base64}"
       end
-
     end
   end
 end

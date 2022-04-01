@@ -1,7 +1,6 @@
 module Cryppo
   module EncryptionValues
     class DerivedKey
-
       include EncryptionValues::EncryptionKey::Helpers
 
       attr_reader :key_derivation_strategy, :derived_key, :derivation_artefacts
@@ -22,14 +21,13 @@ module Cryppo
         payload = serialize_artefacts(serialized_artefacts)
 
         encoded_artefacts = Base64.urlsafe_encode64(payload)
-        '%s.%s' % [key_derivation_strategy.strategy_name, encoded_artefacts]
+        "%s.%s" % [key_derivation_strategy.strategy_name, encoded_artefacts]
       end
 
       def serialize_artefacts(serialized_artefacts)
-        serialized_artefacts['iv'] = BSON::Binary.new(serialized_artefacts['iv'], :generic)
+        serialized_artefacts["iv"] = BSON::Binary.new(serialized_artefacts["iv"], :generic)
         Cryppo::Serialization::CURRENT_VERSION_OF_DERIVATION_ARTEFACTS + serialized_artefacts.to_bson.to_s
       end
-
     end
   end
 end
