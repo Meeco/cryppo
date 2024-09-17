@@ -17,16 +17,12 @@ module Cryppo
       def verify(public_key)
         unless public_key.is_a?(String) || public_key.is_a?(OpenSSL::PKey::RSA)
           raise ArgumentError.new(
-            "The argument to Cryppo::EncryptionValues::RsaSignature#verify must be "\
+            "The argument to Cryppo::EncryptionValues::RsaSignature#verify must be " \
             "a string with a PEM or an instance of OpenSSL::PKey::RSA"
           )
         end
 
-        public_key = if public_key.is_a?(String)
-          OpenSSL::PKey::RSA.new(public_key)
-        else
-          public_key
-        end
+        public_key = OpenSSL::PKey::RSA.new(public_key) if public_key.is_a?(String)
 
         public_key.verify(OpenSSL::Digest.new("SHA256"), @signature, @data)
       end

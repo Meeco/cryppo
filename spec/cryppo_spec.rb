@@ -40,7 +40,7 @@ RSpec.describe Cryppo do
         expect(encrypted_data).not_to be_nil
         expect(encrypted_data).not_to eq(plain_data)
 
-        expect(encrypted_data).to be_a_kind_of(Cryppo::EncryptionValues::EncryptedData)
+        expect(encrypted_data).to be_a(Cryppo::EncryptionValues::EncryptedData)
 
         expect(decrypted_data).to eq(plain_data)
       end
@@ -129,7 +129,7 @@ RSpec.describe Cryppo do
 
         expect(encrypted_data).not_to be_nil
         expect(encrypted_data).not_to eq(plain_data)
-        expect(encrypted_data).to be_a_kind_of(Cryppo::EncryptionValues::EncryptedDataWithDerivedKey)
+        expect(encrypted_data).to be_a(Cryppo::EncryptionValues::EncryptedDataWithDerivedKey)
 
         derived_key = encrypted_data.derived_key
 
@@ -160,7 +160,7 @@ RSpec.describe Cryppo do
     it "fail to sign too large data set" do
       msg = "a" * 513
       key = OpenSSL::PKey::RSA.new(4096)
-      expect { Cryppo.sign_with_private_key(key.to_s, msg) }.to raise_error(::Cryppo::SignedRsaMessageTooLong)
+      expect { Cryppo.sign_with_private_key(key.to_s, msg) }.to raise_error(Cryppo::SignedRsaMessageTooLong)
     end
 
     it "verifying with a public key" do

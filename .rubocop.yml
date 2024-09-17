@@ -1,5 +1,7 @@
 AllCops:
-  TargetRubyVersion: 3.0
+  TargetRubyVersion: 3.1
+  # enable sometimes
+  SuggestExtensions: false
   Exclude:
     - "bin/*"
     - "doc"
@@ -250,7 +252,7 @@ Lint/SelfAssignment:
 Lint/TopLevelReturnWithArgument:
   Enabled: true
 Lint/UnreachableLoop:
-  Enabled: true
+  Enabled: false
 Style/AccessorGrouping:
   Enabled: true
 Style/ArrayCoercion:
@@ -308,7 +310,7 @@ Lint/ToEnumArguments:
 Lint/UnmodifiedReduceAccumulator:
   Enabled: true
 Style/ArgumentsForwarding:
-  Enabled: true
+  Enabled: false
 Style/DocumentDynamicEvalDefinition:
   Enabled: true
 Style/SwapValues:
@@ -354,8 +356,6 @@ Lint/TripleQuotes:
   Enabled: true
 Style/IfWithBooleanLiteralBranches:
   Enabled: true
-Gemspec/DateAssignment:
-  Enabled: true
 Style/HashConversion:
   Enabled: true
 RSpec/MultipleExpectations:
@@ -377,8 +377,6 @@ RSpec/VariableName:
 RSpec/Be:
   Enabled: false
 RSpec/EmptyExampleGroup:
-  Enabled: false
-RSpec/FilePath:
   Enabled: false
 RSpec/MessageSpies:
   Enabled: false
@@ -555,11 +553,7 @@ Style/FileWrite:
   Enabled: true
 Style/MapToHash:
   Enabled: true
-RSpec/FactoryBot/SyntaxMethods:
-  Enabled: true
 Performance/StringIdentifierArgument:
-  Enabled: false
-RSpec/PredicateMatcher:
   Enabled: false
 Style/LambdaCall:
   Enabled: false
@@ -571,5 +565,169 @@ RSpec/BeEq: # new in 2.9.0
   Enabled: false
 RSpec/BeNil: # new in 2.9.0
   Enabled: true
-RSpec/Rails/AvoidSetupHook: # new in 2.4
+Lint/RefinementImportMethods: # new in 1.27
+  Enabled: true
+Style/RedundantInitialize: # new in 1.27
+  Enabled: true
+Security/CompoundHash: # new in 1.28
+  Enabled: true
+Style/EnvHome: # new in 1.29
+  Enabled: true
+Style/FetchEnvVar: # new in 1.28
+  Enabled: true
+Style/ObjectThen: # new in 1.28
+  Enabled: true
+RSpec/VerifiedDoubleReference: # new in 2.10.0
+  Enabled: true
+RSpec/ChangeByZero: # new in 2.11.0
+  Enabled: true
+Gemspec/DeprecatedAttributeAssignment: # new in 1.30
+  Enabled: true
+Style/MapCompactWithConditionalBlock: # new in 1.30
+  Enabled: true
+Layout/LineContinuationLeadingSpace: # new in 1.31
+  Enabled: false
+Layout/LineContinuationSpacing: # new in 1.31
+  Enabled: true
+Lint/ConstantOverwrittenInRescue: # new in 1.31
+  Enabled: true
+Lint/NonAtomicFileOperation: # new in 1.31
+  Enabled: true
+Lint/RequireRangeParentheses: # new in 1.32
+  Enabled: true
+Style/EmptyHeredoc: # new in 1.32
+  Enabled: true
+Style/MagicCommentFormat: # new in 1.35
+  Enabled: true
+RSpec/ClassCheck: # new in 2.13
+  Enabled: true
+RSpec/NoExpectationExample: # new in 2.13
+  Enabled: false
+Lint/DuplicateMagicComment: # new in 1.37
+  Enabled: true
+Style/OperatorMethodCall: # new in 1.37
+  Enabled: true
+Style/RedundantStringEscape: # new in 1.37
+  Enabled: true
+RSpec/SortMetadata: # new in 2.14
+  Enabled: true
+Style/RedundantEach: # new in 1.38
+  Enabled: true
+Style/ArrayIntersect: # new in 1.40
+  Enabled: true
+Style/ConcatArrayLiterals: # new in 1.41
+  Enabled: true
+Style/MapToSet: # new in 1.42
+  Enabled: true
+Style/MinMaxComparison: # new in 1.42
+  Enabled: true
+Style/RedundantConstantBase: # new in 1.40
+  Enabled: true
+Style/RedundantDoubleSplatHashBraces: # new in 1.41
+  Enabled: true
+Style/YodaExpression: # new in 1.42
+  Enabled: false
+RSpec/DuplicatedMetadata: # new in 2.16
+  Enabled: true
+RSpec/PendingWithoutReason: # new in 2.16
+  Enabled: false
+Gemspec/DevelopmentDependencies: # new in 1.44
+  Enabled: true
+Lint/UselessRescue: # new in 1.43
+  Enabled: true
+Metrics/CollectionLiteralLength: # new in 1.47
+  Enabled: false
+Style/ComparableClamp: # new in 1.44
+  Enabled: true
+Style/DirEmpty: # new in 1.48
+  Enabled: true
+Style/FileEmpty: # new in 1.48
+  Enabled: true
+Style/RedundantHeredocDelimiterQuotes: # new in 1.45
+  Enabled: true
+RSpec/RedundantAround: # new in 2.19
+  Enabled: true
+RSpec/SkipBlockInsideExample: # new in 2.19
+  Enabled: true
+RSpec/MatchArray:
+  Enabled: false
+Lint/DuplicateMatchPattern: # new in 1.50
+  Enabled: true
+Style/DataInheritance: # new in 1.49
+  Enabled: true
+Style/ExactRegexpMatch: # new in 1.51
+  Enabled: true
+Style/RedundantLineContinuation: # new in 1.49
+  Enabled: true
+RSpec/BeEmpty: # new in 2.20
+  Enabled: true
+RSpec/ContainExactly: # new in 2.19
+  Enabled: true
+RSpec/IndexedLet: # new in 2.20
+  Enabled: false
+Lint/MixedCaseRange: # new in 1.53
+  Enabled: true
+Lint/RedundantRegexpQuantifiers: # new in 1.53
+  Enabled: true
+Style/RedundantArrayConstructor: # new in 1.52
+  Enabled: true
+Style/RedundantCurrentDirectoryInPath: # new in 1.53
+  Enabled: true
+Style/RedundantFilterChain: # new in 1.52
+  Enabled: true
+Style/RedundantRegexpArgument: # new in 1.53
+  Enabled: true
+Style/RedundantRegexpConstructor: # new in 1.52
+  Enabled: true
+Style/ReturnNilInPredicateMethodDefinition: # new in 1.53
+  Enabled: false
+Style/YAMLFileRead: # new in 1.53
+  Enabled: true
+RSpec/ReceiveMessages: # new in 2.23
+  Enabled: true
+Performance/MapMethodChain: # new in 1.19
+  Enabled: true
+Lint/LiteralAssignmentInCondition: # new in 1.58
+  Enabled: true
+Style/SingleLineDoEndBlock: # new in 1.57
+  Enabled: true
+Style/SuperWithArgsParentheses: # new in 1.58
+  Enabled: true
+RSpec/EmptyMetadata: # new in 2.24
+  Enabled: true
+RSpec/Eq: # new in 2.24
+  Enabled: true
+RSpec/MetadataStyle: # new in 2.24
+  Enabled: true
+RSpec/SpecFilePathFormat: # new in 2.24
+  Enabled: false
+RSpec/SpecFilePathSuffix: # new in 2.24
+  Enabled: false
+Lint/ItWithoutArgumentsInBlock: # new in 1.59
+  Enabled: true
+RSpec/RedundantPredicateMatcher: # new in 2.26
+  Enabled: true
+RSpec/RemoveConst: # new in 2.26
+  Enabled: true
+RSpec/IsExpectedSpecify: # new in 2.27
+  Enabled: true
+RSpec/RepeatedSubjectCall: # new in 2.27
+  Enabled: true
+Style/MapIntoArray: # new in 1.63
+  Enabled: true
+RSpec/EmptyOutput: # new in 2.29
+  Enabled: true
+RSpec/UndescriptiveLiteralsDescription: # new in 2.29
+  Enabled: true
+Style/SendWithLiteralMethodName: # new in 1.64
+  Enabled: true
+Style/SuperArguments: # new in 1.64
+  Enabled: false
+RSpec/ExpectInLet: # new in 2.30
+  Enabled: true
+Gemspec/AddRuntimeDependency: # new in 1.65
+  Enabled: true
+Lint/UselessNumericOperation: # new in 1.66
+  Enabled: true
+Style/RedundantInterpolationUnfreeze: # new in 1.66
   Enabled: true

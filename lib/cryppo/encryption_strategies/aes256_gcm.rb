@@ -19,7 +19,7 @@ module Cryppo
         cipher.auth_data = auth_data
         encrypted_data = cipher.update(data.to_s) + cipher.final
         auth_tag = cipher.auth_tag # produces 16 bytes tag by default
-        EncryptionValues::EncryptedData.new(self, encrypted_data, iv: iv, auth_tag: auth_tag, auth_data: auth_data)
+        EncryptionValues::EncryptedData.new(self, encrypted_data, iv:, auth_tag:, auth_data:)
       rescue => e
         handle_encryption_error(e)
       end
@@ -46,7 +46,7 @@ module Cryppo
 
       def deserialize_artefacts(payload)
         iv, auth_tag, auth_data = payload.values_at("iv", "at", "ad")
-        {iv: iv, auth_tag: auth_tag, auth_data: auth_data}
+        {iv:, auth_tag:, auth_data:}
       end
     end
   end

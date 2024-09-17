@@ -17,7 +17,7 @@ RSpec.describe Cryppo do
 
       begin
         encrypted = Cryppo.load(serialized)
-      rescue ::Cryppo::InvalidSerializedValue => e
+      rescue Cryppo::InvalidSerializedValue => e
       end
 
       if e.nil?
@@ -49,7 +49,7 @@ RSpec.describe Cryppo do
 
       begin
         encrypted = Cryppo.load(serialized)
-      rescue ::Cryppo::InvalidSerializedValue => e
+      rescue Cryppo::InvalidSerializedValue => e
       end
       if e.nil?
         decrypted = encrypted.decrypt(passphrase)

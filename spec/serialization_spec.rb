@@ -48,7 +48,7 @@ RSpec.describe "Serialization" do
         "Aes256Gcm.MKqNIBDJd0GiSuKRtJVW.QUAAAAAFaXYADAAAAACFQp/FfChOjJ+C0lgFYXQAEAAAAABGeM6DOVX61jAE.Pbkdf2Hmac.SzAAAAAQaQA-TgAABWl2ABQAAAAAfpc0yPy0psETSKUSYE8pw53TTyMQbAAgAAAAAA=="
       ]
       cryppo_messages_with_plain_base64_encoding.each do |msg|
-        expect { Cryppo.load(msg) }.to raise_error(::Cryppo::UnsupportedBase64Encoding)
+        expect { Cryppo.load(msg) }.to raise_error(Cryppo::UnsupportedBase64Encoding)
       end
     end
   end

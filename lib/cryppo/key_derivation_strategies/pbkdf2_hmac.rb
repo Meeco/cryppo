@@ -15,14 +15,14 @@ module Cryppo
         unwrapped_key = unwrap_encryption_key(key)
         salt = OpenSSL::Random.random_bytes(20)
         iterations = min_iterations + SecureRandom.random_number(variance) # provide some randomisation to the number of iterations
-        derived_key = OpenSSL::KDF.pbkdf2_hmac(unwrapped_key, salt: salt, iterations: iterations, length: key_length, hash: OpenSSL::Digest.new("SHA256"))
+        derived_key = OpenSSL::KDF.pbkdf2_hmac(unwrapped_key, salt:, iterations:, length: key_length, hash: OpenSSL::Digest.new("SHA256"))
         wrapped_derived_key = wrap_encryption_key(derived_key)
-        EncryptionValues::DerivedKey.new(self, wrapped_derived_key, salt: salt, iter: iterations, length: key_length, hash: "SHA256")
+        EncryptionValues::DerivedKey.new(self, wrapped_derived_key, salt:, iter: iterations, length: key_length, hash: "SHA256")
       end
 
       def build_derived_key(key, derived_key_value)
         salt, iterations, key_length = derived_key_value.derivation_artefacts.values_at(:salt, :iter, :length)
-        OpenSSL::KDF.pbkdf2_hmac(key, salt: salt, iterations: iterations, length: key_length, hash: OpenSSL::Digest.new("SHA256"))
+        OpenSSL::KDF.pbkdf2_hmac(key, salt:, iterations:, length: key_length, hash: OpenSSL::Digest.new("SHA256"))
       end
 
       def serialize_artefacts(artefacts)
@@ -32,7 +32,7 @@ module Cryppo
 
       def deserialize_artefacts(payload)
         salt, iterations, key_length = payload.values_at("iv", "i", "l")
-        {salt: salt, iter: iterations, length: key_length, hash: "SHA256"}
+        {salt:, iter: iterations, length: key_length, hash: "SHA256"}
       end
     end
   end

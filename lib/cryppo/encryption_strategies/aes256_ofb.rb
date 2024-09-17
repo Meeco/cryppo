@@ -13,7 +13,7 @@ module Cryppo
         cipher.key = unwrap_encryption_key(key)
         iv = cipher.random_iv
         encrypted_data = cipher.update(data.to_s) + cipher.final
-        EncryptionValues::EncryptedData.new(self, encrypted_data, iv: iv)
+        EncryptionValues::EncryptedData.new(self, encrypted_data, iv:)
       rescue => e
         handle_encryption_error(e)
       end
