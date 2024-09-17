@@ -30,6 +30,8 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "openssl", "~> 3.2"
   spec.add_dependency "bson", "> 4.14"
+  spec.add_dependency "base64", "> 0"
+  spec.add_dependency "bigdecimal", "> 0"
 
   spec.metadata["rubygems_mfa_required"] = "true"
 end
