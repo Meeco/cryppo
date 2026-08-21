@@ -13,7 +13,7 @@ module Cryppo::Serialization
     case chunks.size
     when 5
       b64_encoded = [chunks[1], chunks[2], chunks[4]]
-      if is_base64_rfc2045(*b64_encoded)
+      if base64_rfc2045?(*b64_encoded)
         raise ::Cryppo::UnsupportedBase64Encoding, "only URL-safe base64 is supported"
       end
 
@@ -21,7 +21,7 @@ module Cryppo::Serialization
 
     when 3
       b64_encoded = chunks.last(2)
-      if is_base64_rfc2045(*b64_encoded)
+      if base64_rfc2045?(*b64_encoded)
         raise ::Cryppo::UnsupportedBase64Encoding, "only URL-safe base64 is supported"
       end
 
@@ -29,7 +29,7 @@ module Cryppo::Serialization
 
     when 4
       b64_encoded = chunks.last(2)
-      if is_base64_rfc2045(*b64_encoded)
+      if base64_rfc2045?(*b64_encoded)
         raise ::Cryppo::UnsupportedBase64Encoding, "only URL-safe base64 is supported"
       end
 
@@ -40,7 +40,7 @@ module Cryppo::Serialization
     end
   end
 
-  def is_base64_rfc2045(*str_b64)
+  def base64_rfc2045?(*str_b64)
     str_b64.any? { |str| str.chars.any? { |c| c == "/" || c == "+" } }
   end
 

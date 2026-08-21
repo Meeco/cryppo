@@ -13,7 +13,7 @@ AllCops:
     - "coverage/**/*"
     - "log/**/*"
     - "docker/**/*"
-require:
+plugins:
   - rubocop-rspec
   - rubocop-performance
 Metrics/MethodLength:
@@ -78,8 +78,6 @@ Style/ParallelAssignment:
 Metrics/ParameterLists:
   Enabled: false
 Style/DoubleNegation:
-  Enabled: false
-Naming/PredicateName:
   Enabled: false
 Layout/ParameterAlignment:
   Enabled: true
@@ -730,4 +728,124 @@ Gemspec/AddRuntimeDependency: # new in 1.65
 Lint/UselessNumericOperation: # new in 1.66
   Enabled: true
 Style/RedundantInterpolationUnfreeze: # new in 1.66
+  Enabled: true
+Gemspec/AttributeAssignment: # new in 1.77
+  Enabled: true
+Layout/EmptyLinesAfterModuleInclusion: # new in 1.79
+  Enabled: true
+Lint/ArrayLiteralInRegexp: # new in 1.71
+  Enabled: true
+Lint/ConstantReassignment: # new in 1.70
+  Enabled: true
+Lint/CopDirectiveSyntax: # new in 1.72
+  Enabled: true
+Lint/DataDefineOverride: # new in 1.85
+  Enabled: true
+Lint/DeprecatedReference: # new in 1.89
+  Enabled: true
+Lint/DuplicateSetElement: # new in 1.67
+  Enabled: true
+Lint/HashNewWithKeywordArgumentsAsDefault: # new in 1.69
+  Enabled: true
+Lint/NameTypo: # new in 1.89
+  Enabled: true
+Lint/NumericOperationWithConstantResult: # new in 1.69
+  Enabled: true
+Lint/RedundantTypeConversion: # new in 1.72
+  Enabled: true
+Lint/SharedMutableDefault: # new in 1.70
+  Enabled: true
+Lint/SuppressedExceptionInNumberConversion: # new in 1.72
+  Enabled: true
+Lint/UnescapedBracketInRegexp: # new in 1.68
+  Enabled: true
+Lint/UnreachablePatternBranch: # new in 1.85
+  Enabled: true
+Lint/UselessConstantScoping: # new in 1.72
+  Enabled: true
+Lint/UselessDefaultValueArgument: # new in 1.76
+  Enabled: true
+Lint/UselessDefined: # new in 1.69
+  Enabled: true
+Lint/UselessOr: # new in 1.76
+  Enabled: true
+Naming/PredicateMethod: # new in 1.76
+  Enabled: true
+Style/AmbiguousEndlessMethodDefinition: # new in 1.68
+  Enabled: true
+Style/ArrayIntersectWithSingleElement: # new in 1.81
+  Enabled: true
+Style/BitwisePredicate: # new in 1.68
+  Enabled: true
+Style/CollectionQuerying: # new in 1.77
+  Enabled: true
+Style/CombinableDefined: # new in 1.68
+  Enabled: true
+Style/ComparableBetween: # new in 1.74
+  Enabled: true
+Style/DigChain: # new in 1.69
+  Enabled: true
+Style/EmptyClassDefinition: # new in 1.84
+  Enabled: false
+Style/EmptyStringInsideInterpolation: # new in 1.76
+  Enabled: true
+Style/FileNull: # new in 1.69
+  Enabled: true
+Style/FileOpen: # new in 1.85
+  Enabled: true
+Style/FileTouch: # new in 1.69
+  Enabled: true
+Style/HashFetchChain: # new in 1.75
+  Enabled: true
+Style/HashSlice: # new in 1.71
+  Enabled: true
+Style/ItAssignment: # new in 1.70
+  Enabled: true
+Style/ItBlockParameter: # new in 1.75
+  Enabled: true
+Style/KeywordArgumentsMerging: # new in 1.68
+  Enabled: true
+Style/MapJoin: # new in 1.85
+  Enabled: true
+Style/ModuleMemberExistenceCheck: # new in 1.82
+  Enabled: true
+Style/NegativeArrayIndex: # new in 1.84
+  Enabled: true
+Style/OneClassPerFile: # new in 1.85
+  Enabled: true
+Style/PartitionInsteadOfDoubleSelect: # new in 1.85
+  Enabled: true
+Style/PredicateWithKind: # new in 1.85
+  Enabled: true
+Style/ReduceToHash: # new in 1.85
+  Enabled: true
+Style/RedundantArrayFlatten: # new in 1.76
+  Enabled: true
+Style/RedundantFormat: # new in 1.72
+  Enabled: true
+Style/RedundantMinMaxBy: # new in 1.85
+  Enabled: true
+Style/ReverseFind: # new in 1.84
+  Enabled: true
+Style/SafeNavigationChainLength: # new in 1.68
+  Enabled: true
+Style/SelectByKind: # new in 1.85
+  Enabled: true
+Style/SelectByRange: # new in 1.85
+  Enabled: true
+Style/TallyMethod: # new in 1.85
+  Enabled: true
+RSpec/DiscardedMatcher: # new in 3.10
+  Enabled: true
+RSpec/IncludeExamples: # new in 3.6
+  Enabled: true
+RSpec/LeakyLocalVariable: # new in 3.8
+  Enabled: true
+RSpec/MatchWithSimpleRegex: # new in 3.10
+  Enabled: true
+RSpec/Output: # new in 3.9
+  Enabled: true
+Performance/StringBytesize: # new in 1.23
+  Enabled: true
+Performance/ZipWithoutBlock: # new in 1.24
   Enabled: true

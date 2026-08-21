@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Require `base64` and `bigdecimal` from gems rather than the Ruby standard library
+- Upgraded dependencies, notably `rubocop` (1.66 -> 1.89), `parallel` (1.26 -> 2.1), `parser`, `rspec`, `pry`, `openssl`, `json`, and `rake`
 
 ## [0.6.3] - 2024-09-17
 
