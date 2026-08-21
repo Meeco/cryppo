@@ -1,0 +1,116 @@
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## Unreleased
+
+### Changed
+
+- Require `base64` and `bigdecimal` from gems rather than the Ruby standard library
+
+## [0.6.3] - 2024-09-17
+
+### Changed
+
+- Raised minimum supported Ruby version to 3.1 (released 2021-12-25)
+- Upgraded rubocop and fixed the resulting offenses
+- Upgraded dependencies
+
+## [0.6.2] - 2022-04-01
+
+### Changed
+
+- Upgraded to OpenSSL 3.0
+
+## [0.6.1] - 2022-02-23
+
+### Changed
+
+- Upgraded to Ruby 3, upgraded dependent libraries
+- Resolved style guide issues
+
+## [0.6.0] - 2021-01-25
+
+- Dropped support for legacy format (yaml)
+- Added hard limit to data which can be signed with RSA signature to 512 bytes
+- Added explicit check against base64 RFC 2045 encoding, rendering it as incompatible (the only supported base64 is a URL safe variant)
+
+## [0.5.2] - 2020-11-30
+
+- Added `required forwardable` clause to enforce initialization of EncryptedDataWithDerivedKey::Forwardable
+
+## [0.5.1] - 2020-06-19
+
+- Added BSON based serialization as default format
+- Added compatibility test for different Cryppo ports e.g Cryppo-js
+- Supports legacy serialization for backward compatibility
+
+## [0.4.1] - 2010-03-18
+
+- RSA signing an verifying
+
+## [0.4.0] - 2019-10-21
+
+- RSA signing an verifying
+
+## [0.3.0] - 2018-12-21
+
+### Fixed
+
+- When using the `Pbkdf2Hmac` derivation strategy, keys that are wrapped in `EnryptionKey` are now unwrapped to prevent the `CoercionOfEncryptedKeyToString` error being raised.
+
+## [0.3.0] - 2018-10-05
+
+### Added
+
+- Added serialization and deserialization of encrypted data
+- Updated README with serialization instructions
+
+### Fixed
+
+- Fix misspelled error message in EncryptionKey#raise_serialization_error
+- Fixed spelling of UnsupportedKeyDerivationStrategy
+
+## [0.2.1] - 2018-10-05
+
+### Fixed
+
+- Fixed wrong number of arguments being passed to `EncryptionValues::EncryptedData` in `Cryppo.to_encrypted_data_value`
+
+## [0.2.0] - 2018-10-04
+
+### Changed
+
+- `EnryptionStrategy` and `KeyDerivationStrategy` names are now derived from the class name (excluding the module name)
+
+### Fixed
+
+- Errors of type `Cryppo::Error` raised during an encryption/decryption operation no longer get reraised as `EncryptionError` or `DecryptionError`.
+  As an example, attempting to encrypt a `EncryptionValues::EncryptionKey` should raise a `CoercionOfEncryptedKeyToString` error, however, it was being converted to an `EncryptionError`
+
+## [0.1.0] - 2018-10-04
+
+### Added
+
+- The initial implementation of the Cryppo lib. Includes:
+  - Encryption strategies:
+    - Aes256Gcm
+    - Aes256Ofb
+    - Rsa4096
+  - Key derivation strategies:
+    - Pbkdf2Hmac
+  - Wrapper objects:
+    - DerivedKey
+    - EncryptedData
+    - EncryptedDataWithDerivedKey
+    - EncryptionKey
+  - Basic encryption and decryption implementations:
+    - `Cryppo.encrypt`
+    - `Cryppo.encrypt_with_derived_key`
+    - `Cryppo.decrypt`
+    - `Cryppo.decrypt_with_derived_key`
+    - `Cryppo.generate_encryption_key`
+  - Basic rspec tests

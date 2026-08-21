@@ -194,10 +194,10 @@ Use semantic versioning.
 
 Update the version in following files:
 * cryppo/lib/version.rb
-* RELEASE.md - Don't remove `## Unreleased`. Instead, add the new version as a h2 heading *underneath*.
+* CHANGELOG.md - Add the new version as a h2 heading at the top, above the previous release.
 * Gemfile.lock
 
-Ensure the RELEASE.md has been updated with all the changes/fixes/additions.
+Ensure the CHANGELOG.md has been updated with all the changes/fixes/additions.
 Ensure the README.md has been updated to reflect all the changes in this release.
 Ensure new specs have been added for new features.
 Ensure the specs pass.
