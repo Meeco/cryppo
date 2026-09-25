@@ -141,6 +141,22 @@ RSpec.describe Cryppo do
     end
   end
 
+  describe "Encryption / decryption of a hash" do
+    all_encryption_strategies.each do |strategy_name|
+      it "Encryption/decryption of a hash using strategy #{strategy_name}" do
+        encryption_strategy = Cryppo.encryption_strategy_by_name(strategy_name).new
+        key = encryption_strategy.generate_key
+        hash = {"name" => "Alice", :age => 42, :address => {"city" => "Brussels"}}
+
+        encrypted_data = encryption_strategy.encrypt_hash(key, hash)
+        expect(encrypted_data).to be_a(Cryppo::EncryptionValues::EncryptedData)
+
+        decrypted_hash = encryption_strategy.decrypt_hash(key, encrypted_data)
+        expect(decrypted_hash).to eq(name: "Alice", age: 42, address: {"city" => "Brussels"})
+      end
+    end
+  end
+
   describe "Encryption / decryption with a derived key" do
     let(:plain_data) { "Hello world!" }
     let(:derivation_strategy_name) { "Pbkdf2Hmac" }

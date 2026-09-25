@@ -30,7 +30,7 @@ module Cryppo
       end
 
       def decrypt_hash(key, encoded_hash)
-        JSON.parse(decrypt(key, encoded_hash)).symbolize_keys
+        JSON.parse(decrypt(key, encoded_hash)).transform_keys(&:to_sym)
       end
 
       def encrypt(_key, _data, _options)

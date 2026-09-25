@@ -1,5 +1,6 @@
 require "yaml"
 require "base64"
+require "json"
 require "openssl"
 require "securerandom"
 require "bson"

@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - `Cryppo.load` raises `UnsupportedSigningStrategy` instead of `NameError` for an unsupported signature
+- `EncryptionStrategy#decrypt_hash` no longer depends on ActiveSupport's `symbolize_keys`
 
 ## [0.6.4] - 2026-08-21
 
