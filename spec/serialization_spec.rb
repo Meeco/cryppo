@@ -53,6 +53,18 @@ RSpec.describe "Serialization" do
     end
   end
 
+  context "with a signature" do
+    it "fail to load a signature with an unsupported prefix or signing strategy" do
+      invalid_signatures = [
+        "Foo.Rsa4096.YWJj.YWJj",
+        "Sign.Rsa2048.YWJj.YWJj"
+      ]
+      invalid_signatures.each do |msg|
+        expect { Cryppo.load(msg) }.to raise_error(Cryppo::UnsupportedSigningStrategy, "Serialized RSA signature expected")
+      end
+    end
+  end
+
   context "with a derived key" do
     let(:passphrase) { "my passphrase" }
     let(:derivation_strategy_name) { "Pbkdf2Hmac" }

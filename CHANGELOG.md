@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `Rsa4096` no longer leaks the offending key into the `UnknownKeyPairType` error message
 
+### Fixed
+
+- `Cryppo.load` raises `UnsupportedSigningStrategy` instead of `NameError` for an unsupported signature
+
 ## [0.6.4] - 2026-08-21
 
 ### Changed

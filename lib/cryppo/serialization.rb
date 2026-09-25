@@ -89,7 +89,7 @@ module Cryppo::Serialization
         Base64.urlsafe_decode64(data)
       )
     else
-      raise UnsupportedSigningStrategy, "Serialized RSA signature expected"
+      raise ::Cryppo::UnsupportedSigningStrategy, "Serialized RSA signature expected"
     end
   end
 
