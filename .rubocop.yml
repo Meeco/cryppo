@@ -1,5 +1,5 @@
 AllCops:
-  TargetRubyVersion: 3.1
+  TargetRubyVersion: 3.3
   # enable sometimes
   SuggestExtensions: false
   Exclude:
@@ -848,4 +848,14 @@ RSpec/Output: # new in 3.9
 Performance/StringBytesize: # new in 1.23
   Enabled: true
 Performance/ZipWithoutBlock: # new in 1.24
+  Enabled: true
+Lint/ArgumentMismatch: # new in 1.90
+  Enabled: true
+Lint/MisplacedMagicComment: # new in 1.91
+  Enabled: true
+Lint/SuperArgumentMismatch: # new in 1.90
+  Enabled: true
+Style/DirectiveScope: # new in 1.90
+  Enabled: true
+Style/TimeNow: # new in 1.90
   Enabled: true

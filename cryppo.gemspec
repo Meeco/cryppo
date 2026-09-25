@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.summary = "An encryption library"
   spec.description = "Cryppo is a cryptographic library that enables you to encrypt and decrypt data.  Pick an encryption strategy and encrypt away!"
   spec.homepage = ""
-  spec.required_ruby_version = ">= 3.1"
+  spec.required_ruby_version = ">= 3.3"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
   # to allow pushing to a single host or delete this section to allow pushing to any host.
@@ -28,7 +28,7 @@ Gem::Specification.new do |spec|
   spec.executables = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "openssl", "~> 3.2"
+  spec.add_dependency "openssl", ">= 3.2", "< 5"
   spec.add_dependency "bson", "> 4.14"
   spec.add_dependency "base64", "> 0"
   spec.add_dependency "bigdecimal", "> 0"

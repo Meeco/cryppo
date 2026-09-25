@@ -1,5 +1,6 @@
 require "yaml"
 require "base64"
+require "json"
 require "openssl"
 require "securerandom"
 require "bson"
@@ -29,6 +30,11 @@ module Cryppo
       const_get(strategy_name).tap do |klass|
         unless klass < Cryppo::EncryptionStrategies::EncryptionStrategy
           raise UnsupportedEncryptionStrategy.new("#{klass} is not a Cryppo::EncryptionStrategies::EncryptionStrategy")
+        end
+
+        # abstract strategies such as AesStrategy are subclasses too, but never registered
+        unless EncryptionStrategy.strategies.include?(klass.name.split("::").last)
+          raise UnsupportedEncryptionStrategy.new("#{klass} is not a registered encryption strategy")
         end
       end
     rescue NameError => e

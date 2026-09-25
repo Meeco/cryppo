@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.6.5] - 2026-09-25
+
+### Security
+
+- `Rsa4096` no longer leaks the offending key into the `UnknownKeyPairType` error message
+
+### Fixed
+
+- `Cryppo.load` raises `UnsupportedSigningStrategy` instead of `NameError` for an unsupported signature
+- `EncryptionStrategy#decrypt_hash` no longer depends on ActiveSupport's `symbolize_keys`
+- Decryption with a `Pbkdf2Hmac` derived key now unwraps a passphrase wrapped in `EncryptionKey`, as encryption already did
+- `Cryppo.encryption_strategy_by_name`, and thus `Cryppo.load`, rejects the abstract `AesStrategy` with `UnsupportedEncryptionStrategy` instead of failing later with `NotImplementedError`
+
+### Changed
+
+- Raised minimum supported Ruby version to 3.3 (released 2023-12-25)
+- Allow the `openssl` gem 4.x (the dependency is now `>= 3.2, < 5`); the development lockfile uses 4.0.2
+
 ## [0.6.4] - 2026-08-21
 
 ### Changed

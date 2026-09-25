@@ -44,7 +44,7 @@ module Cryppo
           raise
         end
       rescue => _e
-        raise UnknownKeyPairType, "Must be a PEM formatted string or an OpenSSL::PKey::RSA object: got %s" % [rsa_key]
+        raise UnknownKeyPairType, "Must be a PEM formatted string or an OpenSSL::PKey::RSA object: got a %s" % [rsa_key.class]
       end
 
       def serialize_artefacts(_artefacts)
