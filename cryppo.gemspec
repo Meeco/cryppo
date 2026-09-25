@@ -28,7 +28,7 @@ Gem::Specification.new do |spec|
   spec.executables = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "openssl", "~> 3.2"
+  spec.add_dependency "openssl", ">= 3.2", "< 5"
   spec.add_dependency "bson", "> 4.14"
   spec.add_dependency "base64", "> 0"
   spec.add_dependency "bigdecimal", "> 0"

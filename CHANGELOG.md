@@ -18,6 +18,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Decryption with a `Pbkdf2Hmac` derived key now unwraps a passphrase wrapped in `EncryptionKey`, as encryption already did
 - `Cryppo.encryption_strategy_by_name`, and thus `Cryppo.load`, rejects the abstract `AesStrategy` with `UnsupportedEncryptionStrategy` instead of failing later with `NotImplementedError`
 
+### Changed
+
+- Allow the `openssl` gem 4.x (the dependency is now `>= 3.2, < 5`); the development lockfile uses 4.0.2
+
 ## [0.6.4] - 2026-08-21
 
 ### Changed
