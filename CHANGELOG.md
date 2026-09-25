@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Raised minimum supported Ruby version to 3.3 (released 2023-12-25)
 - Allow the `openssl` gem 4.x (the dependency is now `>= 3.2, < 5`); the development lockfile uses 4.0.2
 
 ## [0.6.4] - 2026-08-21
