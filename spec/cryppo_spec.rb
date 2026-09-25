@@ -92,6 +92,29 @@ RSpec.describe Cryppo do
       end.to raise_exception(Cryppo::EncryptionStrategies::Rsa4096::UnknownKeyPairType)
     end
 
+    it "does not leak the wrong key into the error message of a Rsa4096 decryption" do
+      key = Cryppo.generate_encryption_key("Rsa4096")
+      encrypted_data = Cryppo.encrypt("Rsa4096", key, plain_data)
+
+      wrong_key = Cryppo.generate_encryption_key("Aes256Gcm")
+      wrong_key_bytes = wrong_key.unwrap_key.b
+
+      expect do
+        encrypted_data.decrypt(wrong_key)
+      end.to raise_exception(Cryppo::EncryptionStrategies::Rsa4096::UnknownKeyPairType) { |e|
+        expect(e.message.b).not_to include(wrong_key_bytes)
+        expect(e.message).to end_with("got a String")
+      }
+    end
+
+    it "does not leak the wrong key into the error message of a Rsa4096 encryption" do
+      expect do
+        Cryppo.encrypt("Rsa4096", "not a PEM secret", plain_data)
+      end.to raise_exception(Cryppo::EncryptionStrategies::Rsa4096::UnknownKeyPairType) { |e|
+        expect(e.message).not_to include("not a PEM secret")
+      }
+    end
+
     it "trying to feed a random string as a key to a Aes256Gcm decryption" do
       key = Cryppo.generate_encryption_key("Aes256Gcm")
       encrypted_data = Cryppo.encrypt("Aes256Gcm", key, plain_data)
