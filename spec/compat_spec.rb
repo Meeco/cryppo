@@ -1,13 +1,7 @@
 RSpec.describe Cryppo do
-  require "json"
+  let(:test_data) { JSON.parse(File.read(File.expand_path("compat.json", __dir__))) }
 
   it "the corpus of serialized values: encryption with generated keys" do
-    f = File.new("./spec/compat.json", "r")
-    json = f.read
-    f.close
-
-    test_data = JSON.parse(json)
-
     test_data["encryption_with_key"].each do |one_test|
       encryption_strategy = one_test["encryption_strategy"]
       expected_decryption_result = one_test["expected_decryption_result"]
@@ -33,12 +27,6 @@ RSpec.describe Cryppo do
   end
 
   it "the corpus of serialized values: encryption with derived keys" do
-    f = File.new("./spec/compat.json", "r")
-    json = f.read
-    f.close
-
-    test_data = JSON.parse(json)
-
     test_data["encryption_with_derived_key"].each do |one_test|
       _derivation_strategy = one_test["derivation_strategy"]
       _encryption_strategy = one_test["encryption_strategy"]
@@ -61,12 +49,6 @@ RSpec.describe Cryppo do
   end
 
   it "the corpus of serialized values: signatures" do
-    f = File.new("./spec/compat.json", "r")
-    json = f.read
-    f.close
-
-    test_data = JSON.parse(json)
-
     test_data["signatures"].each do |one_test|
       public_pem = one_test["public_pem"]
       serialized_signature = one_test["serialized_signature"]

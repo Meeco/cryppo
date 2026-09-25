@@ -137,4 +137,88 @@ RSpec.describe "Serialization" do
       end
     end
   end
+
+  context "with invalid serialized values" do
+    def encode(bytes)
+      Base64.urlsafe_encode64(bytes)
+    end
+
+    let(:serialized_with_derived_key) do
+      Cryppo.encrypt_with_derived_key("Aes256Gcm", "Pbkdf2Hmac", "my passphrase", "some plain data").serialize.split(".")
+    end
+
+    ["", "Aes256Gcm", "Aes256Gcm.YWJj", "Aes256Gcm.YWJj.YWJj.Pbkdf2Hmac.YWJj.YWJj"].each do |serialized|
+      it "fails to load a value with #{serialized.split(".").size} chunks" do
+        expect { Cryppo.load(serialized) }.to raise_error(Cryppo::InvalidSerializedValue, "Invalid serialized value")
+      end
+    end
+
+    it "fails to load a value with an unknown encryption strategy" do
+      expect do
+        Cryppo.load("Nope.YWJj.#{encode("A" + {}.to_bson.to_s)}")
+      end.to raise_error(Cryppo::UnsupportedEncryptionStrategy)
+    end
+
+    it "fails to load a value with an unknown key derivation strategy" do
+      serialized_with_derived_key[3] = "Nope"
+
+      expect do
+        Cryppo.load(serialized_with_derived_key.join("."))
+      end.to raise_error(Cryppo::UnsupportedKeyDerivationStrategy)
+    end
+
+    it "fails to load encryption artefacts with an unknown version byte" do
+      expect do
+        Cryppo.load("Aes256Gcm.YWJj.#{encode("Z" + {}.to_bson.to_s)}")
+      end.to raise_error(Cryppo::InvalidSerializedValue, "unknown serialization format")
+    end
+
+    it "fails to load encryption artefacts in the legacy YAML format" do
+      expect do
+        Cryppo.load("Aes256Gcm.YWJj.#{encode("---\niv: x\n")}")
+      end.to raise_error(Cryppo::InvalidSerializedValue, /support for yaml based format has been dropped/)
+    end
+
+    it "fails to load derivation artefacts with an unknown version byte" do
+      serialized_with_derived_key[4] = encode("Z" + {}.to_bson.to_s)
+
+      expect do
+        Cryppo.load(serialized_with_derived_key.join("."))
+      end.to raise_error(Cryppo::InvalidSerializedValue, "unknown serialization format")
+    end
+
+    it "fails to load derivation artefacts in the legacy YAML format" do
+      serialized_with_derived_key[4] = encode("---\niv: x\n")
+
+      expect do
+        Cryppo.load(serialized_with_derived_key.join("."))
+      end.to raise_error(Cryppo::InvalidSerializedValue, /support for yaml based format has been dropped/)
+    end
+  end
+
+  context "when serializing a loaded value again" do
+    all_encryption_strategies.each do |strategy_name|
+      it "produces the same string using strategy #{strategy_name}" do
+        key = Cryppo.generate_encryption_key(strategy_name)
+        serialized = Cryppo.encrypt(strategy_name, key, "some plain data").serialize
+
+        expect(Cryppo.load(serialized).serialize).to eq(serialized)
+      end
+    end
+
+    aes_encryption_strategies.each do |strategy_name|
+      it "produces the same string with a derived key using strategy #{strategy_name}" do
+        serialized = Cryppo.encrypt_with_derived_key(strategy_name, "Pbkdf2Hmac", "my passphrase", "some plain data").serialize
+
+        expect(Cryppo.load(serialized).serialize).to eq(serialized)
+      end
+    end
+
+    it "produces the same string for a signature" do
+      private_key = OpenSSL::PKey::RSA.new(4096)
+      serialized = Cryppo.sign_with_private_key(private_key.to_pem, "Test data!").serialize
+
+      expect(Cryppo.load(serialized).serialize).to eq(serialized)
+    end
+  end
 end

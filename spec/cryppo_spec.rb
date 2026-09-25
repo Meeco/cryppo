@@ -28,6 +28,71 @@ RSpec.describe Cryppo do
     end.to raise_exception(Cryppo::UnsupportedEncryptionStrategy)
   end
 
+  it "rejects the abstract encryption strategies" do
+    ["EncryptionStrategy", "AesStrategy"].each do |strategy_name|
+      expect do
+        Cryppo.encryption_strategy_by_name(strategy_name)
+      end.to raise_exception(Cryppo::UnsupportedEncryptionStrategy)
+    end
+  end
+
+  it "fails to load a serialized value with an abstract encryption strategy" do
+    serialized = "AesStrategy.YWJj.#{Base64.urlsafe_encode64("A" + {}.to_bson.to_s)}"
+
+    expect { Cryppo.load(serialized) }.to raise_exception(Cryppo::UnsupportedEncryptionStrategy)
+  end
+
+  it "Cryppo.generate_encryption_key defaults to Aes256Gcm" do
+    allow(Cryppo::EncryptionStrategies::Aes256Gcm).to receive(:new).and_call_original
+
+    key = Cryppo.generate_encryption_key
+    expect(Cryppo::EncryptionStrategies::Aes256Gcm).to have_received(:new).once
+
+    encrypted_data = Cryppo.encrypt("Aes256Gcm", key, "Hello world!")
+
+    expect(encrypted_data.decrypt(key)).to eq("Hello world!")
+  end
+
+  describe "Decryption with raw encrypted data and artefacts" do
+    let(:plain_data) { "Hello world!" }
+
+    all_encryption_strategies.each do |strategy_name|
+      it "Cryppo.decrypt using strategy #{strategy_name}" do
+        key = Cryppo.generate_encryption_key(strategy_name)
+        encrypted_data = Cryppo.encrypt(strategy_name, key, plain_data)
+
+        decrypted_data = Cryppo.decrypt(strategy_name, key, encrypted_data.encrypted_data, encrypted_data.encryption_artefacts)
+
+        expect(decrypted_data).to eq(plain_data)
+      end
+    end
+
+    it "Cryppo.decrypt using strategy Rsa4096 without artefacts" do
+      key = Cryppo.generate_encryption_key("Rsa4096")
+      encrypted_data = Cryppo.encrypt("Rsa4096", key, plain_data)
+
+      expect(Cryppo.decrypt("Rsa4096", key, encrypted_data.encrypted_data)).to eq(plain_data)
+    end
+
+    aes_encryption_strategies.each do |strategy_name|
+      it "Cryppo.decrypt_with_derived_key using strategy #{strategy_name}" do
+        passphrase = "my passphrase"
+        encrypted_data = Cryppo.encrypt_with_derived_key(strategy_name, "Pbkdf2Hmac", passphrase, plain_data)
+
+        decrypted_data = Cryppo.decrypt_with_derived_key(
+          strategy_name,
+          "Pbkdf2Hmac",
+          passphrase,
+          encrypted_data.encrypted_data,
+          encrypted_data.encryption_artefacts,
+          encrypted_data.derivation_artefacts
+        )
+
+        expect(decrypted_data).to eq(plain_data)
+      end
+    end
+  end
+
   describe "Encryption / decryption with a generated key" do
     let(:plain_data) { "Hello world!" }
 
