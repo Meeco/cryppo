@@ -178,6 +178,15 @@ RSpec.describe Cryppo do
         decrypted_data = encrypted_data.decrypt(passphrase)
         expect(decrypted_data).to eq(plain_data)
       end
+
+      it "Encryption/decryption with a passphrase wrapped in an EncryptionKey using strategy: #{strategy_name}" do
+        wrapped_passphrase = Cryppo::EncryptionValues::EncryptionKey.new(passphrase)
+        encrypted_data = Cryppo.encrypt_with_derived_key(strategy_name, derivation_strategy_name, wrapped_passphrase, plain_data)
+
+        expect(encrypted_data.decrypt(wrapped_passphrase)).to eq(plain_data)
+        expect(encrypted_data.decrypt(passphrase)).to eq(plain_data)
+        expect(Cryppo.load(encrypted_data.serialize).decrypt(wrapped_passphrase)).to eq(plain_data)
+      end
     end
   end
 

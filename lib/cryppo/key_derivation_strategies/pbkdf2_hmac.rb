@@ -22,7 +22,7 @@ module Cryppo
 
       def build_derived_key(key, derived_key_value)
         salt, iterations, key_length = derived_key_value.derivation_artefacts.values_at(:salt, :iter, :length)
-        OpenSSL::KDF.pbkdf2_hmac(key, salt:, iterations:, length: key_length, hash: OpenSSL::Digest.new("SHA256"))
+        OpenSSL::KDF.pbkdf2_hmac(unwrap_encryption_key(key), salt:, iterations:, length: key_length, hash: OpenSSL::Digest.new("SHA256"))
       end
 
       def serialize_artefacts(artefacts)
